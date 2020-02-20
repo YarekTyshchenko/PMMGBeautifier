@@ -3,15 +3,17 @@
 	"name": "Regex Replacer",
 	"description": "",
 	"version": "0.0.1",
-	"content_scripts": [
-		{
-				"matches": [
-						"https://*/*"
-				],
-				"js": [
-						"content.js"
-				],
-				"run_at": "document_end"
-		}
+	"background": {
+		"scripts": [
+				"content.js"
+		],
+		"persistent": true
+	},
+	"browser_action": {
+			"default_title": "foo"
+	},
+	"permissions": [
+			"https://*/*",
+			"file://*/*"
 	]
 }
