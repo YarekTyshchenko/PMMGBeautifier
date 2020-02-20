@@ -1,0 +1,17 @@
+{
+	"manifest_version": 2,
+	"name": "Regex Replacer",
+	"description": "",
+	"version": "0.0.1",
+	"content_scripts": [
+		{
+				"matches": [
+						"https://*/*"
+				],
+				"js": [
+						"content.js"
+				],
+				"run_at": "document_end"
+		}
+	]
+}
