@@ -5,9 +5,9 @@
       }
 
       /**
-       * Parse all commodity ads and display the per unit price
+       * Parse all localmarket ads and display the per unit price
        */
-      function parseCommodityAds() {
+      function parseLocalmarketAds() {
         const elements = document.querySelectorAll("div[class^='CommodityAd__text___'");
 
         for (let i = 0; i < elements.length; i++) {
@@ -25,6 +25,6 @@
         }
       }
 
-      parseCommodityAds();
+      window.setInterval(parseLocalmarketAds, 1000);
     }
 )();
