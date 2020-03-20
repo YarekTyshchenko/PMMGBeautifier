@@ -24,6 +24,11 @@
         }
       }
 
+      /**
+       * parse a duration into an actual ETA string
+       * @param duration
+       * @returns {string}
+       */
       function convertDurationToETA(duration) {
         const days = duration.match(/(\d+)\s*d/);
         const hours = duration.match(/(\d+)\s*h/);
@@ -57,6 +62,18 @@
       }
 
       /**
+       * Create a span with the given text
+       * @param text
+       * @returns {HTMLSpanElement}
+       */
+      function createTextSpan(text) {
+        const newSpan = document.createElement("span");
+        newSpan.classList.add("prun-remove-js");
+        newSpan.textContent = text;
+        return newSpan;
+      }
+
+      /**
        * Parse all ETA times and add the actual date-time of arrival
        */
       function parseETAs() {
@@ -72,10 +89,7 @@
               const childSpans = targetRow.getElementsByTagName("span");
               const textContent = childSpans[0].textContent.split('(')[0];
               const eta = convertDurationToETA(textContent);
-              const newSpan = document.createElement("span");
-              newSpan.classList.add("prun-remove-js");
-              newSpan.textContent = ` (${eta})`;
-              targetRow.appendChild(newSpan);
+              targetRow.appendChild(createTextSpan(` (${eta})`));
             }
           });
         });
@@ -88,11 +102,7 @@
           if (order.querySelectorAll("span[class^='OrderStatus__inProgress___'").length > 0) {
             const etaSpan = order.getElementsByTagName("span")[1].children[0];
             const eta = convertDurationToETA(etaSpan.textContent);
-
-            const newSpan = document.createElement("span");
-            newSpan.classList.add("prun-remove-js");
-            newSpan.textContent = ` (${eta})`;
-            order.appendChild(newSpan);
+            order.appendChild(createTextSpan(` (${eta})`));
           }
         });
       }
