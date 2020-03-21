@@ -10,7 +10,7 @@
 	"content_scripts": [
 		{
 			"matches": ["https://apex.prosperousuniverse.com/*", "file://*/*"],
-			"js": ["inject.js"]
+			"js": ["dist/main.js"]
 		}
 	]
 }

@@ -21,3 +21,13 @@ Right now you need to install this extension manually into Chrome or Firefox.
 * Open `about:debugging` in Firefox
 * Select `Load Temporary Add-on` and select the `manifest.json` from this repo
 * that's it
+
+# Development
+
+It uses webpack to create javascript from typescript, and puts it into `dist/` dir.
+You can load that directly using "load unpacked" extension from the root dir.
+Keep the build command running to make it rebuild as you edit the file.
+```bash
+npm install
+npm run build
+```
