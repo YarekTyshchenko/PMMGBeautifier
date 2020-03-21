@@ -107,6 +107,15 @@
         });
       }
 
+      function parseFlightplanETAs(){
+        const elements = document.querySelectorAll("tbody[class^='MissionPlan__stats___'");
+        elements.forEach((tbody) => {
+          const targetRow = tbody.children[0].children[3];
+          const eta = convertDurationToETA(targetRow.children[0].textContent);
+          targetRow.appendChild(createTextSpan(` (${eta})`))
+        })
+      }
+
       function cleanup() {
         // remove all elements added in the last run
         Array.from(document.getElementsByClassName("prun-remove-js")).forEach((elem) => {
@@ -119,6 +128,7 @@
         parseLocalmarketAds();
         parseETAs();
         parseOrderETAs();
+        parseFlightplanETAs();
       }, 1000);
     }
 )();

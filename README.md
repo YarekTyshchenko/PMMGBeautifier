@@ -2,6 +2,7 @@
 
 * Show the price per unit for local market ads
 * Show the ETA of ships as actual date-time
+* Show the ETA in flightplan as actual date-time
 * Show the production order completion as actual date-time
 
 # Installation
