@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
-	"name": "PrUn Beautifier",
+	"name": "PMMG Beautifier",
 	"description": "",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"permissions": [
 			"https://apex.prosperousuniverse.com/*",
 			"file://*/*"
