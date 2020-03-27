@@ -1,3 +1,4 @@
+
 (function () {
   function toFixed(value, precision) {
     const power = Math.pow(10, precision || 0);
@@ -165,27 +166,57 @@
     });
   }
 
-
   /**
-   * Sort Inventories by Code: not working just yet sorry!
-   */
+ * Sort Inventories by Code
+ * Small issue with this is that it compares a larger string than just the Code, but it's close at the moment
+ */
   function sortInventoryByCode() {
-    const inventories = document.querySelectorAll("div[class^='InventoryView__grid___'")
-
+    const inventories = document.querySelectorAll("div[class^='InventoryView__grid__'")
+    console.log(inventories.length)
     for (let i = 0; i < inventories.length; i++) {
-      const inventory = inventories[i]
-      inventoryArray = Array.from(inventory)
+      console.log(i)
+      let sorted = Array.from(inventories[i].children).sort(function (a, b) {
+        console.log('in here:' + i)
+        let codeA = a.innerText.split('\n')[0]; // ignore upper and lowercase
+        let codeB = b.innerText.split('\n')[0]; // ignore upper and lowercase
+        if (codeA < codeB) {
+          return -1;
+        }
+        if (codeA > codeB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
 
-      inventoryArray.sort(function(a,b){
-        const one = a.child.child.child.child.child.child.textContent;
-        console.log(one)
-        const two = b.child.child.child.child.child.child.textContent;
-
-        return one - two
       })
+      // for (let x = 0; x < sorted.length; i++) {
+      //   inventories[i].append(sorted[x])
+      //   console.log('removing inv' + i)
+      //   console.log('adding inv' + i)
+      // }
     }
-
   }
+
+  function addSortByCodeButton() {
+    const buttonContainer = document.querySelectorAll("div[class^='InventorySortControls__controls___'")
+    for (let i = 0; i < buttonContainer.length; i++) {
+      let numButtons = Array.from(buttonContainer[i].children).length
+      if (numButtons < 6) {
+        let codeButton = document.createElement('div')
+        codeButton.classList.add('InventorySortControls__criteria___1UBEZGp')
+        let title = document.createElement('div')
+        let arrowSpace = document.createElement('div')
+        arrowSpace.classList.add('InventorySortControls__order___2snExpX')
+        title.textContent = 'COD'
+        codeButton.appendChild(title)
+        codeButton.appendChild(arrowSpace)
+        codeButton.onclick = sortInventoryByCode();
+        buttonContainer[i].append(codeButton)
+      }
+
+    }
+  }
+
 
   window.setInterval(() => {
     cleanup();
@@ -195,7 +226,9 @@
     parseOrderETAs();
     parseFlightplanETAs();
     snipLongUsernamesInChat();
-   // sortInventoryByCode();
+    addSortByCodeButton();
   }, 1000);
 }
 )();
+
+
