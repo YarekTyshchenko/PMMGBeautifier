@@ -23,6 +23,7 @@ export class LocalMarketAds {
         const priceSpan = element.children[0].children[1];
         const span = document.createElement('span');
         span.textContent = ` (${perItem} ea)`;
+        span.classList.add("prun-remove-js");
         priceSpan.append(span);
       }
     }
