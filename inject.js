@@ -169,22 +169,23 @@
   /**
    * Sort Inventories by Code: not working just yet sorry!
    */
-  // function sortInventoryByCode() {
-  //   const inventories = document.querySelectorAll("div[class^='InventoryView__grid___'")
+  function sortInventoryByCode() {
+    const inventories = document.querySelectorAll("div[class^='InventoryView__grid___'")
 
-  //   for (let i = 0; i < inventories.length; i++) {
-  //     const inventory = inventories[i]
-  //     inventoryArray = Array.from(inventory)
+    for (let i = 0; i < inventories.length; i++) {
+      const inventory = inventories[i]
+      inventoryArray = Array.from(inventory)
 
-  //     inventoryArray.sort(function(a,b){
-  //       const one = a.child.child.child.child.child.child.textContent;
-  //       const two = b.child.child.child.child.child.child.textContent;
+      inventoryArray.sort(function(a,b){
+        const one = a.child.child.child.child.child.child.textContent;
+        console.log(one)
+        const two = b.child.child.child.child.child.child.textContent;
 
-  //       return one - two
-  //     })
-  //   }
+        return one - two
+      })
+    }
 
-  // }
+  }
 
   window.setInterval(() => {
     cleanup();
