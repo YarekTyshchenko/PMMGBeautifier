@@ -166,36 +166,39 @@
     });
   }
 
-  /**
- * Sort Inventories by Code
- * Small issue with this is that it compares a larger string than just the Code, but it's close at the moment
- */
-  function sortInventoryByCode() {
-    const inventories = document.querySelectorAll("div[class^='InventoryView__grid__'")
-    console.log(inventories.length)
-    for (let i = 0; i < inventories.length; i++) {
-      console.log(i)
-      let sorted = Array.from(inventories[i].children).sort(function (a, b) {
-        console.log('in here:' + i)
-        let codeA = a.innerText.split('\n')[0]; // ignore upper and lowercase
-        let codeB = b.innerText.split('\n')[0]; // ignore upper and lowercase
-        if (codeA < codeB) {
-          return -1;
-        }
-        if (codeA > codeB) {
-          return 1;
-        }
-        // names must be equal
-        return 0;
+//   /**
+//  * Sort Inventories by Code
+//  * Small issue with this is that it compares a larger string than just the Code, but it's close at the moment
+//  */
+//   function sortInventoryByCode() {
+//     const inventories = document.querySelectorAll("div[class^='InventoryView__grid__'")
 
-      })
-      // for (let x = 0; x < sorted.length; i++) {
-      //   inventories[i].append(sorted[x])
-      //   console.log('removing inv' + i)
-      //   console.log('adding inv' + i)
-      // }
-    }
-  }
+//     for (let i = 0; i < inventories.length; i++) {
+
+//       let sorted = Array.from(inventories[i].children).sort(function (a, b) {
+
+//         let codeA = a.innerText.split('\n')[0]; // ignore upper and lowercase
+
+//         let codeB = b.innerText.split('\n')[0]; // ignore upper and lowercase
+//         if (codeA < codeB) {
+//           return -1;
+//         }
+//         if (codeA > codeB) {
+//           return 1;
+//         }
+//         // names must be equal
+//         return 0;
+
+//       })
+//       while (inventories[i].firstChild){
+//         inventories[i].removeChild(inventories[i].firstChild)
+//       }
+//       // let inventory = inventories[i]
+//       // for (let x = 0; x < sorted.length; i++) {
+//       //   console.log(sorted[x])
+//       // }
+//     }
+//   }
 
   function addSortByCodeButton() {
     const buttonContainer = document.querySelectorAll("div[class^='InventorySortControls__controls___'")
@@ -210,13 +213,47 @@
         title.textContent = 'COD'
         codeButton.appendChild(title)
         codeButton.appendChild(arrowSpace)
-        codeButton.onclick = sortInventoryByCode();
+        codeButton.onclick = () => {
+            /**
+ * Sort Inventories by Code
+ * Small issue with this is that it compares a larger string than just the Code, but it's close at the moment
+ */
+    const inventories = document.querySelectorAll("div[class^='InventoryView__grid__'")
+
+    for (let i = 0; i < inventories.length; i++) {
+
+      let sorted = Array.from(inventories[i].children).sort(function (a, b) {
+
+        let codeA = a.innerText.split('\n')[0]; // ignore upper and lowercase
+
+        let codeB = b.innerText.split('\n')[0]; // ignore upper and lowercase
+        if (codeA < codeB) {
+          return -1;
+        }
+        if (codeA > codeB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
+
+      })
+      while (inventories[i].firstChild){
+        inventories[i].removeChild(inventories[i].firstChild)
+      }
+
+      
+      for (let x = 0; sorted.length; i++) {
+        console.log('test')
+        // inventories[i].appendChild(sorted[x])
+      }
+    }
+  }
+
         buttonContainer[i].append(codeButton)
       }
 
     }
   }
-
 
   window.setInterval(() => {
     cleanup();
