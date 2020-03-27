@@ -20,8 +20,10 @@ export class LocalMarketAds {
         const count = matches[1];
         const totalCents = parseInt(matches[2].replace(/[,.]/g, ''));
         const perItem = this.toFixed(totalCents / count / 100, 2);
-        const span = element.children[0].children[1];
-        span.textContent += ` (${perItem} ea)`;
+        const priceSpan = element.children[0].children[1];
+        const span = document.createElement('span');
+        span.textContent = ` (${perItem} ea)`;
+        priceSpan.append(span);
       }
     }
   }
