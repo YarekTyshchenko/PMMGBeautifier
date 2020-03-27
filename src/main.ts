@@ -2,6 +2,7 @@ import { FlightplanETAs } from "./FlightplanETAs";
 import { LocalMarketAds } from './localMarketAds';
 import { OrderETAs } from "./OrderETAs";
 import { ParseETAs } from "./ParseETAs";
+import { ShippingAds } from "./shippingAds";
 import { Sidebar } from "./Sidebar";
 import { SnipLongUsernamesInChat } from "./SnipLongUsernamesInChat";
 import { genericCleanup } from "./util";
@@ -11,10 +12,12 @@ const parseETAs = new ParseETAs();
 const orderETAs = new OrderETAs();
 const flightplanETAs = new FlightplanETAs();
 const snipLongUsernamesInChat = new SnipLongUsernamesInChat();
+const shippingAds = new ShippingAds();
 const sidebar = new Sidebar();
 
 const modules = [
-  sidebar, localMarketAds, parseETAs, orderETAs, flightplanETAs, snipLongUsernamesInChat
+  sidebar, localMarketAds, shippingAds, parseETAs,
+  orderETAs, flightplanETAs, snipLongUsernamesInChat
 ];
 (function () {
     window.setInterval(() => {
