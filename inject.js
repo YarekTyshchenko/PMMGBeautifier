@@ -166,45 +166,55 @@
     });
   }
 
-//   /**
-//  * Sort Inventories by Code
-//  * Small issue with this is that it compares a larger string than just the Code, but it's close at the moment
-//  */
-//   function sortInventoryByCode() {
-//     const inventories = document.querySelectorAll("div[class^='InventoryView__grid__'")
+/**
+ * Sort Inventories by Code
+ * TODO: only grab the inventory where the button was pressed
+ */
 
-//     for (let i = 0; i < inventories.length; i++) {
+var sortByCode = false
+function sortInventoriesByCode() {
+if (sortByCode) {
+const inventories = document.querySelectorAll("div[class^='InventoryView__grid__'")
 
-//       let sorted = Array.from(inventories[i].children).sort(function (a, b) {
+inventories.forEach(inventory => {
 
-//         let codeA = a.innerText.split('\n')[0]; // ignore upper and lowercase
+  let sorted = Array.from(inventory.children).sort(function (a, b) {
 
-//         let codeB = b.innerText.split('\n')[0]; // ignore upper and lowercase
-//         if (codeA < codeB) {
-//           return -1;
-//         }
-//         if (codeA > codeB) {
-//           return 1;
-//         }
-//         // names must be equal
-//         return 0;
+    let codeA = a.innerText.split('\n')[0]; // ignore upper and lowercase
 
-//       })
-//       while (inventories[i].firstChild){
-//         inventories[i].removeChild(inventories[i].firstChild)
-//       }
-//       // let inventory = inventories[i]
-//       // for (let x = 0; x < sorted.length; i++) {
-//       //   console.log(sorted[x])
-//       // }
-//     }
-//   }
+    let codeB = b.innerText.split('\n')[0]; // ignore upper and lowercase
+    if (codeA < codeB) {
+      return -1;
+    }
+    if (codeA > codeB) {
+      return 1;
+    }
+    // names must be equal
+    return 0;
+
+  })
+  inventory.innerHTML = ''
+  
+  sorted.forEach( item => {
+    inventory.appendChild(item)
+  })
+})
+}
+}
 
   function addSortByCodeButton() {
     const buttonContainer = document.querySelectorAll("div[class^='InventorySortControls__controls___'")
-    for (let i = 0; i < buttonContainer.length; i++) {
-      let numButtons = Array.from(buttonContainer[i].children).length
+    buttonContainer.forEach(e => {
+      let buttons = Array.from(e.children)
+      let numButtons = buttons.length
       if (numButtons < 6) {
+        sortingButtons = buttons.splice(1,5)
+        console.log(sortingButtons)
+        sortingButtons.forEach(button => {
+          button.onclick = () => {
+            sortByCode = false    
+          }
+        })
         let codeButton = document.createElement('div')
         codeButton.classList.add('InventorySortControls__criteria___1UBEZGp')
         let title = document.createElement('div')
@@ -214,45 +224,13 @@
         codeButton.appendChild(title)
         codeButton.appendChild(arrowSpace)
         codeButton.onclick = () => {
-            /**
- * Sort Inventories by Code
- * Small issue with this is that it compares a larger string than just the Code, but it's close at the moment
- */
-    const inventories = document.querySelectorAll("div[class^='InventoryView__grid__'")
-
-    for (let i = 0; i < inventories.length; i++) {
-
-      let sorted = Array.from(inventories[i].children).sort(function (a, b) {
-
-        let codeA = a.innerText.split('\n')[0]; // ignore upper and lowercase
-
-        let codeB = b.innerText.split('\n')[0]; // ignore upper and lowercase
-        if (codeA < codeB) {
-          return -1;
-        }
-        if (codeA > codeB) {
-          return 1;
-        }
-        // names must be equal
-        return 0;
-
-      })
-      while (inventories[i].firstChild){
-        inventories[i].removeChild(inventories[i].firstChild)
-      }
-
-      
-      for (let x = 0; sorted.length; i++) {
-        console.log('test')
-        // inventories[i].appendChild(sorted[x])
-      }
-    }
+          sortByCode = true
   }
 
-        buttonContainer[i].append(codeButton)
+        e.append(codeButton)
       }
 
-    }
+    })
   }
 
   window.setInterval(() => {
@@ -264,6 +242,7 @@
     parseFlightplanETAs();
     snipLongUsernamesInChat();
     addSortByCodeButton();
+    sortInventoriesByCode();
   }, 1000);
 }
 )();
