@@ -167,34 +167,42 @@
 
 
   /**
-   * Sort Inventories by Code: not working just yet sorry!
+   * Sort Inventories by Code
+   * Small issue with this is that it compares a larger string than just the Code, 
+   * but seems to work accurately for everything in my inventories
    */
-  // function sortInventoryByCode() {
-  //   const inventories = document.querySelectorAll("div[class^='InventoryView__grid___'")
+  function sortInventoryByCode() {
+    const inventories = document.querySelectorAll("div[class^='InventoryView__grid__'")
 
-  //   for (let i = 0; i < inventories.length; i++) {
-  //     const inventory = inventories[i]
-  //     inventoryArray = Array.from(inventory)
+    for (let i = 0; i < inventories.length; i++) {
+      const inventory = Array.from(inventories[i].children).sort(function (a,b) {
+        var codeA = a.textContent.toUpperCase(); // ignore upper and lowercase
+        var codeB = b.textContent.toUpperCase(); // ignore upper and lowercase
+        if (codeA < codeB) {
+          return -1;
+        }
+        if (codeA > codeB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
 
-  //     inventoryArray.sort(function(a,b){
-  //       const one = a.child.child.child.child.child.child.textContent;
-  //       const two = b.child.child.child.child.child.child.textContent;
+      });
+      for (let x = 0; x < inventory.length; i++) {
+        inventories[i].append(inventory[x])
+      }
+    }
+  }
 
-  //       return one - two
-  //     })
-  //   }
-
-  // }
-
-  window.setInterval(() => {
-    cleanup();
-    createSidebarArea();
-    parseLocalmarketAds();
-    parseETAs();
-    parseOrderETAs();
-    parseFlightplanETAs();
-    snipLongUsernamesInChat();
-   // sortInventoryByCode();
-  }, 1000);
-}
+    window.setInterval(() => {
+      cleanup();
+      createSidebarArea();
+      parseLocalmarketAds();
+      parseETAs();
+      parseOrderETAs();
+      parseFlightplanETAs();
+      snipLongUsernamesInChat();
+      sortInventoryByCode();
+    }, 1000);
+  }
 )();
