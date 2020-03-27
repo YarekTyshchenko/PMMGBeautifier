@@ -25,9 +25,12 @@ Right now you need to install this extension manually into Chrome or Firefox.
 # Development
 
 It uses webpack to create javascript from typescript, and puts it into `dist/` dir.
-You can load that directly using "load unpacked" extension from the root dir.
+You can load that directly using "load unpacked" extension pointing to `dist`.
 Keep the build command running to make it rebuild as you edit the file.
 ```bash
 npm install
 npm run build
 ```
+
+In production we don't have permission for the test file, so you might want to add
+if you need it.
