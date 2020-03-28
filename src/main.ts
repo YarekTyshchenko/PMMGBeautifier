@@ -1,8 +1,8 @@
 import { FlightplanETAs } from "./FlightplanETAs";
-import { LocalMarketAds } from './localMarketAds';
+import { LocalMarketAds } from './LocalMarketAds';
 import { OrderETAs } from "./OrderETAs";
 import { ParseETAs } from "./ParseETAs";
-import { ShippingAds } from "./shippingAds";
+import { ShippingAds } from "./ShippingAds";
 import { Sidebar } from "./Sidebar";
 import { SnipLongUsernamesInChat } from "./SnipLongUsernamesInChat";
 import { genericCleanup } from "./util";

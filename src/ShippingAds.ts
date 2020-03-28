@@ -1,13 +1,9 @@
 import { createTextSpan, toFixed } from "./util";
 
 export class ShippingAds {
-  constructor() {
-
-  }
-
   cleanup() {}
   run() {
-    const elements = document.querySelectorAll("div[class^='CommodityAd__text___'");
+    const elements = document.querySelectorAll("div[class^='CommodityAd__text___']");
 
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
@@ -27,7 +23,6 @@ export class ShippingAds {
           unit = 'm³';
           count = size;
         }
-
 
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
