@@ -4,12 +4,14 @@
   "description": "Improve and tweak the interface elements of PrUn website",
   "version": "0.1.1",
   "permissions": [
-    "https://apex.prosperousuniverse.com/*"
+    "https://apex.prosperousuniverse.com/*",
+    "file:///*/PMMGBeautifier/test.html"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://apex.prosperousuniverse.com/*"
+        "https://apex.prosperousuniverse.com/*",
+        "file:///*/PMMGBeautifier/test.html"
       ],
       "js": [
         "main.js"
