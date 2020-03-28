@@ -4,16 +4,33 @@
 * Show the ETA of ships as actual date-time
 * Show the ETA in flightplan as actual date-time
 * Show the production order completion as actual date-time
+* Show price per shipload for shipping ads
+* Limit long user names in chat to 12 chars
 
 # Installation
 
 Right now you need to install this extension manually into Chrome or Firefox. 
 
+## Build
+
+Webpack is used to create javascript from typescript, and puts everything into
+`dist/` dir.
+You can load that directly using "load unpacked" extension pointing to `dist`.
+Keep the build command running to make it rebuild as you edit typescript files.
+```bash
+npm install
+npm run build
+```
+
+inside `dist` dir is a production manifest, which doesn't have permission for
+the test file, so you might want to add `file:///*` there to both fields where
+prun website appears. This has to be removed for uploading to chrome web store.
+
 ## Chrome
 
 * Open Chrome Extensions Screen
 * Enable Dev-Mode
-* Select `Load unpacked` and browse to the folder where you checked out this repo
+* Select `Load unpacked` and browse to the `dist` folder where the build output is
 * that's it
 
 ## Firefox
@@ -21,16 +38,3 @@ Right now you need to install this extension manually into Chrome or Firefox.
 * Open `about:debugging` in Firefox
 * Select `Load Temporary Add-on` and select the `manifest.json` from this repo
 * that's it
-
-# Development
-
-It uses webpack to create javascript from typescript, and puts it into `dist/` dir.
-You can load that directly using "load unpacked" extension pointing to `dist`.
-Keep the build command running to make it rebuild as you edit the file.
-```bash
-npm install
-npm run build
-```
-
-In production we don't have permission for the test file, so you might want to add
-if you need it.
