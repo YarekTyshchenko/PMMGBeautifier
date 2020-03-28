@@ -13,6 +13,9 @@ Right now you need to install this extension manually into Chrome or Firefox.
 
 ## Build
 
+[![CircleCI](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier.svg?style=shield)](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier)
+
+
 Webpack is used to create javascript from typescript, and puts everything into
 `dist/` dir.
 You can load that directly using "load unpacked" extension pointing to `dist`.
