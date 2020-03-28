@@ -15,6 +15,9 @@ Right now you need to install this extension manually into Chrome or Firefox.
 
 [![CircleCI](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier.svg?style=shield)](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier)
 
+The extension is automatically built and deployed via Circle CI, but only on
+branches `ci` and `master` (and published only on `master`). Setup so we
+can debug CI builds correctly.
 
 Webpack is used to create javascript from typescript, and puts everything into
 `dist/` dir.

@@ -2,6 +2,12 @@ version: 2.1
 orbs:
   node: circleci/node@1.1.6
   chrome-webstore: sugarshin/chrome-webstore@0.0.3
+
+general:
+  branches:
+    only:
+    - master
+    - ci
 jobs:
   build:
     executor:
@@ -22,6 +28,10 @@ workflows:
       jobs:
         - build
         - chrome-webstore/upload:
+            filters:
+              branches:
+                only:
+                  - master
             attach-workspace: true
             auto-publish: true
             checkout: false
