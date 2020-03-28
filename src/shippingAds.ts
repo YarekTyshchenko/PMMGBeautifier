@@ -1,4 +1,4 @@
-import { toFixed } from "./util";
+import { createTextSpan, toFixed } from "./util";
 
 export class ShippingAds {
   constructor() {
@@ -32,16 +32,8 @@ export class ShippingAds {
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
         const priceSpan = element.children[0].children[2];
-
-        this.appendToPrice(priceSpan, ` (${perItem*400} per 400${unit})`);
+        priceSpan.appendChild(createTextSpan(` (${perItem*400} per 400${unit})`));
       }
     }
-  }
-
-  private appendToPrice(priceSpan: Element, text: string) {
-    const span = document.createElement('span');
-    span.textContent = text;
-    span.classList.add("prun-remove-js");
-    priceSpan.append(span);
   }
 }
