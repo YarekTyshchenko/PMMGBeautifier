@@ -1,10 +1,13 @@
-import { convertDurationToETA, createTextSpan } from "./util";
+import {convertDurationToETA, createTextSpan, genericCleanup} from "./util";
 
 /**
  * Parse all ETA times and add the actual date-time of arrival
  */
 export class ParseETAs {
-  cleanup() {}
+  private tag = "pb-other-etas";
+  cleanup() {
+    genericCleanup(this.tag);
+  }
   run() {
     const elements = document.querySelectorAll("table[class^='Fleet__table___'");
     elements.forEach((tableElem) => {
@@ -18,7 +21,7 @@ export class ParseETAs {
           const childSpans = targetRow.getElementsByTagName("span");
           const textContent = childSpans[0].textContent.split('(')[0];
           const eta = convertDurationToETA(textContent);
-          targetRow.appendChild(createTextSpan(` (${eta})`));
+          targetRow.appendChild(createTextSpan(` (${eta})`, this.tag));
         }
       });
     });

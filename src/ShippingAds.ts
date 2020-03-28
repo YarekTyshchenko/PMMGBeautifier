@@ -1,7 +1,10 @@
-import { createTextSpan, toFixed } from "./util";
+import {createTextSpan, genericCleanup, toFixed} from "./util";
 
 export class ShippingAds {
-  cleanup() {}
+  private tag = "pb-shipping-ads";
+  cleanup() {
+    genericCleanup(this.tag);
+  }
   run() {
     const elements = document.querySelectorAll("div[class^='CommodityAd__text___']");
 
@@ -27,7 +30,7 @@ export class ShippingAds {
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
         const priceSpan = element.children[0].children[2];
-        priceSpan.appendChild(createTextSpan(` (${perItem*400} per 400${unit})`));
+        priceSpan.appendChild(createTextSpan(` (${perItem*400} per 400${unit})`, this.tag));
       }
     }
   }

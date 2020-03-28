@@ -1,7 +1,10 @@
-import { createTextSpan, toFixed } from "./util";
+import {createTextSpan, genericCleanup, toFixed} from "./util";
 
 export class LocalMarketAds {
-  cleanup() {}
+  private tag = "pb-lm-ads";
+  cleanup() {
+    genericCleanup(this.tag);
+  }
   run() {
     const elements = document.querySelectorAll("div[class^='CommodityAd__text___'");
 
@@ -14,7 +17,7 @@ export class LocalMarketAds {
         const totalCents = parseInt(matches[2].replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
         const priceSpan = element.children[0].children[1];
-        priceSpan.appendChild(createTextSpan(` (${perItem} ea)`));
+        priceSpan.appendChild(createTextSpan(` (${perItem} ea)`, this.tag));
       }
     }
   }

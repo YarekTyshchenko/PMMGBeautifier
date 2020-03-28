@@ -1,8 +1,9 @@
 export class SnipLongUsernamesInChat {
+  private tag = "prun-beautifier-restore-username";
   cleanup() {
-    Array.from(document.getElementsByClassName("prun-beautifier-restore-username")).forEach(e => {
+    Array.from(document.getElementsByClassName(this.tag)).forEach(e => {
       e.textContent = e.title;
-      e.classList.remove('prun-bautifier-restore-username');
+      e.classList.remove(this.tag);
     });
   }
   run() {
@@ -14,7 +15,7 @@ export class SnipLongUsernamesInChat {
         // Add a tooltip to show full username
         e.title = username;
         e.style['text-decoration'] = 'underline dotted';
-        e.classList.add('prun-beautifier-restore-username');
+        e.classList.add(this.tag);
       }
     })
   }

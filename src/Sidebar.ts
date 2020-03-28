@@ -1,22 +1,94 @@
+import {Style} from "./Style";
+import {createTextSpan, genericCleanup, toFixed} from "./util";
+
+interface ModulePerformance {
+  name: string;
+  enabled: boolean;
+  count: number;
+  cleanupTime: number;
+  runTime: number;
+}
+
 export class Sidebar {
-  cleanup() {}
+  private tag = "pb-sidebar";
+  private list: ModulePerformance[];
+  constructor(list: ModulePerformance[]) {
+    this.list = list;
+  }
+
+  cleanup() {
+    genericCleanup(this.tag);
+  }
+
   run()
   {
     const area = document.createElement('div');
-    area.classList.add('prun-beautifier-sidebar');
-    area.classList.add('prun-remove-js');
+    area.classList.add(this.tag);
     const h3 = document.createElement('h3');
     h3.appendChild(document.createTextNode("PMMG Beautifier"));
-    h3.classList.add("Sidebar__sectionHead___2z1ffry", "fonts__font-regular___w47oqm8");
+    h3.classList.add(Style.SidebarSectionHead, Style.FontsRegular);
     area.appendChild(h3);
     const content = document.createElement("div");
-    content.classList.add("Sidebar__sectionContent___1FaacYp", "fonts__font-regular___w47oqm8");
+    content.classList.add(Style.SidebarSectionContent, Style.FontsRegular);
     area.appendChild(content);
 
-    content.appendChild(document.createTextNode("Foo"));
+    this.list.map(mp => {
+      // Div for the whole line
+      const line = document.createElement('div');
+      line.classList.add(Style.SidebarLine);
+      content.appendChild(line);
+
+      // Left
+      line.appendChild(createTextSpan(mp.name));
+
+      // Right
+      const right = document.createElement("span");
+      right.style.flexGrow = "1";
+      right.style.textAlign = "right";
+      line.appendChild(right);
+
+      const time = toFixed((mp.cleanupTime + mp.runTime) / mp.count, 2);
+      right.appendChild(createTextSpan(`${time}ms `));
+
+      const toggle = this.makeToggleButton("On", "Off", () => {
+        mp.enabled = !mp.enabled;
+      }, mp.enabled);
+      right.appendChild(toggle);
+    });
 
     Array.from(document.querySelectorAll("div[class^='Sidebar__container___']")).forEach(sidebar => {
       sidebar.appendChild(area);
     });
+  }
+
+  private makeToggleButton(on: string, off: string, f: () => void, state: boolean = false) {
+    const toggle = document.createElement('button');
+    toggle.classList.add(Style.Button);
+
+    const getState: boolean = !!toggle.getAttribute('data-state') || state;
+    const setState: (boolean) => void = s => {
+      toggle.setAttribute('data-state', String(s));
+    };
+    const setLook = (s: boolean) => {
+      toggle.innerText = s ? on : off;
+      // If state is switched on:
+      if (s) {
+        toggle.classList.remove(Style.ButtonPrimary);
+        toggle.classList.add(Style.ButtonSuccess);
+      } else {
+        toggle.classList.remove(Style.ButtonSuccess);
+        toggle.classList.add(Style.ButtonPrimary);
+      }
+    };
+
+    setState(state);
+    setLook(state);
+    toggle.onclick = () => {
+      const newState = !getState;
+      setLook(newState);
+      setState(newState);
+      f();
+    };
+    return toggle;
   }
 }

@@ -38,23 +38,25 @@ export function convertDurationToETA(duration) {
 /**
  * Create a span with the given text
  * @param text
+ * @param className
+ * @param typeName
  * @returns {HTMLSpanElement}
  */
-export function createTextSpan(text) {
+export function createTextSpan(text, className: string = "prun-remove-js") {
   const newSpan = document.createElement("span");
-  newSpan.classList.add("prun-remove-js");
+  newSpan.classList.add(className);
   newSpan.textContent = text;
   return newSpan;
 }
 
-export function genericCleanup() {
+export function genericCleanup(className: string = "prun-remove-js") {
   // remove all elements added in the last run
-  Array.from(document.getElementsByClassName("prun-remove-js")).forEach((elem) => {
+  Array.from(document.getElementsByClassName(className)).forEach((elem) => {
     elem.parentNode.removeChild(elem);
   });
 }
 
-export function toFixed(value, precision) {
+export function toFixed(value: number, precision: number = 2) {
   const power = Math.pow(10, precision || 0);
-  return String(Math.round(value * power) / power);
+  return Math.round(value * power) / power;
 }
