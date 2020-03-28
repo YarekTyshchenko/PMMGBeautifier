@@ -1,9 +1,6 @@
-export class LocalMarketAds {
-  private toFixed(value, precision) {
-    const power = Math.pow(10, precision || 0);
-    return String(Math.round(value * power) / power);
-  }
+import { createTextSpan, toFixed } from "./util";
 
+export class LocalMarketAds {
   cleanup() {}
   run() {
     const elements = document.querySelectorAll("div[class^='CommodityAd__text___'");
@@ -15,12 +12,9 @@ export class LocalMarketAds {
       if (matches && matches.length > 2) {
         const count = matches[1];
         const totalCents = parseInt(matches[2].replace(/[,.]/g, ''));
-        const perItem = this.toFixed(totalCents / count / 100, 2);
+        const perItem = toFixed(totalCents / count / 100, 2);
         const priceSpan = element.children[0].children[1];
-        const span = document.createElement('span');
-        span.textContent = ` (${perItem} ea)`;
-        span.classList.add("prun-remove-js");
-        priceSpan.append(span);
+        priceSpan.appendChild(createTextSpan(` (${perItem} ea)`));
       }
     }
   }
