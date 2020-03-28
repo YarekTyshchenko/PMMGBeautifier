@@ -6,7 +6,8 @@
   },
   "name": "pmmg-beautifier",
   "scripts": {
-    "build": "webpack -w"
+    "build": "webpack -w",
+    "package": "webpack"
   },
   "dependencies": {
     "@types/chrome": "^0.0.50"

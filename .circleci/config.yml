@@ -1,0 +1,34 @@
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
+  chrome-webstore: sugarshin/chrome-webstore@0.0.3
+jobs:
+  build:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm run package
+            - run: zip -j -o dist.zip dist/*
+      - persist_to_workspace:
+          paths:
+            - dist.zip
+          root: ~/project
+workflows:
+    build:
+      jobs:
+        - build
+        - chrome-webstore/upload:
+            attach-workspace: true
+            auto-publish: true
+            checkout: false
+            executor: node/default
+            extension-id: joibdcdllfaoegdpjkefncnmcmbkkabi
+            requires:
+            - build
+            source: dist.zip
+            workspace-root: ~/project
+
