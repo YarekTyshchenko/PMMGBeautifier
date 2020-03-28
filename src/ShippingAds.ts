@@ -11,7 +11,7 @@ export class ShippingAds {
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const text = element.textContent;
-      const matches = text.match(/(?:SHIPPING)\s([\d.]+)t\s\/\s([\d.]+)m³\s@\s([\d,.]+)\s[A-Z]+\sfrom/);
+      const matches = text && text.match(/(?:SHIPPING)\s([\d.]+)t\s\/\s([\d.]+)m³\s@\s([\d,.]+)\s[A-Z]+\sfrom/);
 
       if (matches && matches.length > 3) {
         const totalCost = matches[3];

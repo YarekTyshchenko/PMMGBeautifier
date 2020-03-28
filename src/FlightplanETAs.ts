@@ -6,7 +6,7 @@ export class FlightplanETAs {
     genericCleanup(this.tag);
   }
   run() {
-    const elements = document.querySelectorAll("tbody[class^='MissionPlan__stats___'");
+    const elements = Array.from(document.querySelectorAll("tbody[class^='MissionPlan__stats___'"));
     elements.forEach((tbody) => {
       const targetRow = tbody.children[0].children[3];
       const eta = convertDurationToETA(targetRow.children[0].textContent);

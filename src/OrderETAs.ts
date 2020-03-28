@@ -6,7 +6,7 @@ export class OrderETAs {
     genericCleanup(this.tag);
   }
   run() {
-    const elements = document.querySelectorAll("div[class^='OrderSlot__info___'");
+    const elements = Array.from(document.querySelectorAll("div[class^='OrderSlot__info___'"));
     elements.forEach((order) => {
       // we are only interested in active orders, so check for progress bar first
       if (order.querySelectorAll("span[class^='OrderStatus__inProgress___'").length > 0) {

@@ -25,7 +25,7 @@ export function convertDurationToETA(duration) {
   const eta = new Date();
   const now = new Date();
   eta.setSeconds(eta.getSeconds() + parsedSeconds);
-  const diffTime = Math.abs(eta - now);
+  const diffTime = Math.abs(eta.getTime() - now.getTime());
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
   let ret = eta.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
@@ -52,7 +52,7 @@ export function createTextSpan(text, className: string = "prun-remove-js") {
 export function genericCleanup(className: string = "prun-remove-js") {
   // remove all elements added in the last run
   Array.from(document.getElementsByClassName(className)).forEach((elem) => {
-    elem.parentNode.removeChild(elem);
+    elem.parentNode && elem.parentNode.removeChild(elem);
   });
 }
 
