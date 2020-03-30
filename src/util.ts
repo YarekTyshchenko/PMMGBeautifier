@@ -38,13 +38,6 @@ export function convertDurationToETA(duration) {
 /**
  * Create a span with the given text
  * @param text
-<<<<<<< HEAD
- * @returns {HTMLSpanElement}
- */
-export function createTextSpan(text) {
-  const newSpan = document.createElement("span");
-  newSpan.classList.add("prun-remove-js");
-=======
  * @param className
  * @param typeName
  * @returns {HTMLSpanElement}
@@ -52,23 +45,10 @@ export function createTextSpan(text) {
 export function createTextSpan(text, className: string = "prun-remove-js") {
   const newSpan = document.createElement("span");
   newSpan.classList.add(className);
->>>>>>> c9c304af7cca621de254b1698d133a8f9f668972
   newSpan.textContent = text;
   return newSpan;
 }
 
-<<<<<<< HEAD
-export function genericCleanup() {
-  // remove all elements added in the last run
-  Array.from(document.getElementsByClassName("prun-remove-js")).forEach((elem) => {
-    elem.parentNode.removeChild(elem);
-  });
-}
-
-export function toFixed(value, precision) {
-  const power = Math.pow(10, precision || 0);
-  return String(Math.round(value * power) / power);
-=======
 export function genericCleanup(className: string = "prun-remove-js") {
   // remove all elements added in the last run
   Array.from(document.getElementsByClassName(className)).forEach((elem) => {
@@ -79,5 +59,4 @@ export function genericCleanup(className: string = "prun-remove-js") {
 export function toFixed(value: number, precision: number = 2) {
   const power = Math.pow(10, precision || 0);
   return Math.round(value * power) / power;
->>>>>>> c9c304af7cca621de254b1698d133a8f9f668972
 }

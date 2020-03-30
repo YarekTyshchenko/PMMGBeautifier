@@ -1,5 +1,5 @@
-import {Style} from "./Style";
-import {createTextSpan, genericCleanup, toFixed} from "./util";
+import { Style } from "./Style";
+import { createTextSpan, genericCleanup, toFixed } from "./util";
 
 interface ModulePerformance {
   name: string;
@@ -20,11 +20,10 @@ export class Sidebar {
     genericCleanup(this.tag);
   }
 
-  run()
-  {
-    const area = document.createElement('div');
+  run() {
+    const area = document.createElement("div");
     area.classList.add(this.tag);
-    const h3 = document.createElement('h3');
+    const h3 = document.createElement("h3");
     h3.appendChild(document.createTextNode("PMMG Beautifier"));
     h3.classList.add(Style.SidebarSectionHead, Style.FontsRegular);
     area.appendChild(h3);
@@ -34,7 +33,7 @@ export class Sidebar {
 
     this.list.map(mp => {
       // Div for the whole line
-      const line = document.createElement('div');
+      const line = document.createElement("div");
       line.classList.add(Style.SidebarLine);
       content.appendChild(line);
 
@@ -50,26 +49,36 @@ export class Sidebar {
       const time = toFixed((mp.cleanupTime + mp.runTime) / mp.count, 2);
       right.appendChild(createTextSpan(`${time}ms `));
 
-      const toggle = this.makeToggleButton("On", "Off", () => {
-        mp.enabled = !mp.enabled;
-      }, mp.enabled);
+      const toggle = this.makeToggleButton(
+        "On",
+        "Off",
+        () => {
+          mp.enabled = !mp.enabled;
+        },
+        mp.enabled
+      );
       right.appendChild(toggle);
     });
 
-    Array.from(document.querySelectorAll("div[class^='Sidebar__container___']")).forEach(sidebar => {
+    Array.from(
+      document.querySelectorAll("div[class^='Sidebar__container___']")
+    ).forEach(sidebar => {
       sidebar.appendChild(area);
     });
   }
-<<<<<<< HEAD
-=======
 
-  private makeToggleButton(on: string, off: string, f: () => void, state: boolean = false) {
-    const toggle = document.createElement('button');
+  private makeToggleButton(
+    on: string,
+    off: string,
+    f: () => void,
+    state: boolean = false
+  ) {
+    const toggle = document.createElement("button");
     toggle.classList.add(Style.Button);
 
-    const getState: boolean = !!toggle.getAttribute('data-state') || state;
+    const getState: boolean = !!toggle.getAttribute("data-state") || state;
     const setState: (boolean) => void = s => {
-      toggle.setAttribute('data-state', String(s));
+      toggle.setAttribute("data-state", String(s));
     };
     const setLook = (s: boolean) => {
       toggle.innerText = s ? on : off;
@@ -93,5 +102,4 @@ export class Sidebar {
     };
     return toggle;
   }
->>>>>>> c9c304af7cca621de254b1698d133a8f9f668972
 }
