@@ -1,3 +1,4 @@
+import { Style } from "./Style";
 import { genericCleanup } from "./util";
 
 /**
@@ -6,7 +7,7 @@ import { genericCleanup } from "./util";
  */
 export class SortInventory {
   private sortByCode: boolean = false;
-  private tag = "sort-by-code";
+  private tag = "pb-sort-by-code";
   private cleanups: Array<() => void> = [];
 
   cleanup() {
@@ -22,82 +23,83 @@ export class SortInventory {
     this.addSortByCodeButton();
   }
 
-
-
-  private sortInventoriesByCode() {
-    if (this.sortByCode) {
-      const inventories = Array.from(
-        document.querySelectorAll("div[class^='InventoryView__grid__'")
-      );
-
-      inventories.forEach(inventory => {
-        let sorted = Array.from(inventory.children).sort(function(
-          a: HTMLElement,
-          b: HTMLElement
-        ) {
-          let codeA = a.innerText.split("\n")[0]; // ignore upper and lowercase
-          let codeB = b.innerText.split("\n")[0]; // ignore upper and lowercase
-          if (codeA < codeB) {
-            return -1;
-          }
-          if (codeA > codeB) {
-            return 1;
-          }
-          // names must be equal
-          return 0;
-        });
-        inventory.innerHTML = "";
-
-        sorted.forEach(item => {
-          inventory.appendChild(item);
-        });
-      });
-    }
+  /**
+   * Compare inventory grid or list items by they material code
+   */
+  private compareByCode(a: HTMLElement, b: HTMLElement) {
+    const codeA = a.innerText.split("\n")[0]; // ignore upper and lowercase
+    const codeB = b.innerText.split("\n")[0]; // ignore upper and lowercase
+    return codeA.localeCompare(codeB);
   }
 
+  private sortInventoryByCode(inventory: Element) {
+    // Sort elements by code
+    const sorted = Array.from(inventory.children).sort(this.compareByCode);
+    // Clear inventory grid
+    inventory.innerHTML = "";
 
+    // Append sorted elements in order
+    sorted.forEach(item => {
+      inventory.appendChild(item);
+    });
+  }
+
+  /**
+   * Find every visible inventory grid or list and sort them
+   */
+  private sortInventoriesByCode() {
+    if (!this.sortByCode) {
+      return
+    }
+    const inventories = Array.from(document.querySelectorAll(
+      "div[class^='InventoryView__grid__'], div[class^='InventoryView__list__']"
+    ));
+    inventories.forEach(inventory => this.sortInventoryByCode(inventory));
+  }
+
+  private sortByCodeOff = () => {
+    this.sortByCode = false;
+  };
+  private sortByCodeOn = () => {
+    this.sortByCode = true;
+    this.sortInventoriesByCode();
+  };
 
   private addSortByCodeButton() {
     const buttonContainer = Array.from(
       document.querySelectorAll(
-        "div[class^='InventorySortControls__controls___'"
+        "div[class^='InventorySortControls__controls___']"
       )
     );
-    const sortByCodeOff = () => {
-      this.sortByCode = false
-    }
-    const sortByCodeOn = () => {
-      this.sortByCode = true
-    }
     buttonContainer.forEach(e => {
-        let buttons = Array.from(e.children);
-        let numButtons = buttons.length;
-        if (numButtons < 6) {
-          let sortingButtons = buttons.splice(1, 5);
-          console.log(sortingButtons);
-          sortingButtons.forEach(button => {
-            button.addEventListener("click", sortByCodeOff);
-          });
-          let codeButton = document.createElement("div");
-          codeButton.classList.add("InventorySortControls__criteria___1UBEZGp");
-          codeButton.classList.add(this.tag);
-          let title = document.createElement("div");
-          title.classList.add(this.tag);
-          let arrowSpace = document.createElement("div");
-          arrowSpace.classList.add(this.tag);
-          arrowSpace.classList.add("InventorySortControls__order___2snExpX");
-          title.textContent = "COD";
-          codeButton.appendChild(title);
-          codeButton.appendChild(arrowSpace);
-          codeButton.addEventListener('click', sortByCodeOn );
+      const buttons = Array.from(e.children);
+      if (buttons.length < 6) {
+        const sortingButtons = buttons.splice(1, 5);
+        // Attach "Off" listeners on all other buttons
+        sortingButtons.forEach(button => {
+          button.addEventListener("click", this.sortByCodeOff);
+          this.cleanups.push(() => button.removeEventListener('click', this.sortByCodeOff));
+        });
+        const codeButton = this.createCodeButton() ;
+        codeButton.addEventListener('click', this.sortByCodeOn );
+        // Attach "On" listener to COD button
+        this.cleanups.push(() => codeButton.removeEventListener('click', this.sortByCodeOn));
 
-          e.appendChild(codeButton);
-
-          this.cleanups.push(() => codeButton.removeEventListener('click', sortByCodeOn))
-
-          sortingButtons.forEach(button => {
-            this.cleanups.push(() => button.removeEventListener('click', sortByCodeOff));
-          });
-        }
+        e.appendChild(codeButton);
       }
-    )}}
+    })
+  }
+
+  private createCodeButton() {
+    const codeButton = document.createElement("div");
+    codeButton.classList.add(Style.InventorySortControlsCriteria);
+    codeButton.classList.add(this.tag);
+    const title = document.createElement("div");
+    const arrowSpace = document.createElement("div");
+    arrowSpace.classList.add(Style.InventorySortControlsOrder);
+    title.textContent = "COD";
+    codeButton.appendChild(title);
+    codeButton.appendChild(arrowSpace);
+    return codeButton
+  }
+}
