@@ -8,19 +8,15 @@ import { ShippingAds } from "./ShippingAds";
 import { SnipLongUsernamesInChat } from "./SnipLongUsernamesInChat";
 import { SortInventory } from "./SortInventory";
 
-const localMarketAds = new LocalMarketAds();
-const parseETAs = new ParseETAs();
-const orderETAs = new OrderETAs();
-const flightplanETAs = new FlightplanETAs();
-const snipLongUsernamesInChat = new SnipLongUsernamesInChat();
-const shippingAds = new ShippingAds();
-const sortInventory = new SortInventory();
-
 const runner = new ModuleRunner([
-  localMarketAds, shippingAds, parseETAs,
-  orderETAs, flightplanETAs, snipLongUsernamesInChat,
-  sortInventory,
-  new PostLMPrice()
+  new LocalMarketAds(),
+  new ParseETAs(),
+  new OrderETAs(),
+  new FlightplanETAs(),
+  new SnipLongUsernamesInChat(),
+  new ShippingAds(),
+  new SortInventory(),
+  new PostLMPrice(),
 ]);
 (function () {
   runner.loop()
