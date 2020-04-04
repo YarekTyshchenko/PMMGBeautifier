@@ -9,16 +9,51 @@
 * Show price per unit when posting local market ads
 
 # Installation
-
-Right now you need to install this extension manually into Chrome or Firefox. 
-
-## Build
-
 [![CircleCI](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier.svg?style=shield)](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier)
 
-The extension is automatically built and deployed via Circle CI, but only on
-branches `ci` and `master` (and published only on `master`). Setup so we
-can debug CI builds correctly.
+For Chrome install from the [Web Store](https://chrome.google.com/webstore/detail/pmmg-beautifier/joibdcdllfaoegdpjkefncnmcmbkkabi)
+
+For Firefox you need to install this extension manually (see below for instructions). 
+
+## Contributing
+
+The structure of this project is designed to be friendly to contributions.
+Each feature is split into a module that can be worked on independently
+from others. If a module is causing performance problems, it can be disabled
+in the sidebar.
+
+If you want to add a feature start by doing this:
+- Clone this repository
+- Create a branch with your feature's name
+- Temporarily disable PMMGBeautifier if you installed it via web store 
+- Follow setup instructions in the section below, and load your locally built copy
+- Test that it works on the `test.html` file
+
+You are now ready to begin hacking!
+- Run the build process, and watch for any typescript errors as you work
+- Create a new module in `src/` which follows the `Module` interface
+- Instantiate it in `main.ts` and add it into the array of modules
+- Iterate on your module until it works, commit often!
+
+Each module has a `cleanup` and `run` method, they run once per second.
+Your module should create or attach itself to any UI element that you need
+to tweak. On cleanup you should do the reverse, and ensure the UI is
+restored back to its original state. This ensures that when the module is
+disabled, the UI isn't broken. Have a look at existing modules for inspiration
+but be aware that some may need refactoring. Ask if you have questions.
+
+When you are happy with how it works submit a Pull Request to this repository.
+One of us will review it, suggest feedback with the goal of merging it in.
+Be aware that as number of users of this extension grows, so does our care for
+not breaking any existing features, or the interface itself. We might not be
+able to accept all contributions if they cause stability issues.
+
+Once your PR is merged, a new version of the extension will be automatically
+published to the chrome web store.
+
+## Development
+
+Requirements: `nodejs`, `npm` (or `yarn` works too)
 
 Webpack is used to create javascript from typescript, and puts everything into
 `dist/` dir.
@@ -29,9 +64,10 @@ npm install
 npm run build
 ```
 
-inside `dist` dir is a production manifest, which doesn't have permission for
-the test file, so you might want to add `file:///*` there to both fields where
-prun website appears. This has to be removed for uploading to chrome web store.
+There is a test file that you can use while developing so you don't have to
+refresh the real website many times. Add snippets of HTML to it for your new
+features, but consider it a temporary tool, we might wipe it if it gets too
+out of hand
 
 ## Chrome
 
@@ -45,3 +81,9 @@ prun website appears. This has to be removed for uploading to chrome web store.
 * Open `about:debugging` in Firefox
 * Select `Load Temporary Add-on` and select the `manifest.json` from this repo
 * that's it
+
+## Deployment and Publishing
+
+The extension is automatically built and deployed via Circle CI, but only on
+branches `ci` and `master` (and published only on `master`). Setup so we
+can debug CI builds correctly.
