@@ -7,6 +7,7 @@
 * Show price per shipload for shipping ads
 * Limit long user names in chat to 12 chars
 * Show price per unit when posting local market ads
+* Sort inventories by material code
 
 # Installation
 
