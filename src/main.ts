@@ -6,7 +6,7 @@ import { ParseETAs } from "./ParseETAs";
 import { PostLMPrice } from "./PostLMPrice";
 import { ShippingAds } from "./ShippingAds";
 import { SnipLongUsernamesInChat } from "./SnipLongUsernamesInChat";
-import { OrderInventory } from "./OrderInventory";
+import { SortInventory } from "./SortInventory";
 
 const localMarketAds = new LocalMarketAds();
 const parseETAs = new ParseETAs();
@@ -14,12 +14,12 @@ const orderETAs = new OrderETAs();
 const flightplanETAs = new FlightplanETAs();
 const snipLongUsernamesInChat = new SnipLongUsernamesInChat();
 const shippingAds = new ShippingAds();
-const orderInventory = new OrderInventory();
+const sortInventory = new SortInventory();
 
 const runner = new ModuleRunner([
   localMarketAds, shippingAds, parseETAs,
   orderETAs, flightplanETAs, snipLongUsernamesInChat,
-  orderInventory,
+  sortInventory,
   new PostLMPrice()
 ]);
 (function () {
