@@ -4,7 +4,7 @@ import { genericCleanup } from "./util";
  * Sort Inventories by Code
  * TODO: only grab the inventory where the button was pressed
  */
-export class OrderInventory {
+export class SortInventory {
   private sortByCode: boolean = false;
   private tag = "sort-by-code";
   private cleanups: Array<() => void> = [];
