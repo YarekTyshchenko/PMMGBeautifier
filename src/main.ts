@@ -7,6 +7,7 @@ import { PostLMPrice } from "./PostLMPrice";
 import { ShippingAds } from "./ShippingAds";
 import { SnipLongUsernamesInChat } from "./SnipLongUsernamesInChat";
 import { SortInventory } from "./SortInventory";
+import { PostLMButton } from "./PostLMButton";
 
 const runner = new ModuleRunner([
   new LocalMarketAds(),
@@ -17,6 +18,7 @@ const runner = new ModuleRunner([
   new ShippingAds(),
   new SortInventory(),
   new PostLMPrice(),
+  new PostLMButton(),
 ]);
 (function () {
   runner.loop()
