@@ -2,6 +2,9 @@ import {Style} from "./Style";
 import {createTextSpan, genericCleanup, toFixed} from "./util";
 
 interface ModulePerformance {
+  module: {
+    cleanup: () => void;
+  }
   name: string;
   enabled: boolean;
   count: number;
@@ -54,11 +57,24 @@ export class Sidebar {
         mp.enabled = !mp.enabled;
       }, mp.enabled);
       right.appendChild(toggle);
+
+      const cleanup = this.makePushButton("x", () => mp.module.cleanup());
+      right.appendChild(cleanup);
     });
 
     Array.from(document.querySelectorAll("div[class^='Sidebar__container___']")).forEach(sidebar => {
       sidebar.appendChild(area);
     });
+  }
+
+  private makePushButton(text: string, f: () => void, style = Style.ButtonPrimary) {
+    const button = document.createElement('button');
+    button.classList.add(Style.Button);
+    button.classList.add(style);
+    button.classList.add(this.tag);
+    button.onclick = f;
+    button.innerText = text;
+    return button;
   }
 
   private makeToggleButton(on: string, off: string, f: () => void, state: boolean = false) {
