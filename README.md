@@ -8,6 +8,7 @@
 * Limit long user names in chat to 12 chars
 * Show price per unit when posting local market ads
 * Sort inventories by material code
+* Change LM Post button to the type of ad
 
 # Installation
 [![CircleCI](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier.svg?style=shield)](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier)
