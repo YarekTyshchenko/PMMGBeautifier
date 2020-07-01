@@ -14,9 +14,9 @@ export class ShippingAds {
       const matches = text && text.match(/(?:SHIPPING)\s([\d.]+)t\s\/\s([\d.]+)m³\s@\s([\d,.]+)\s[A-Z]+\sfrom/);
 
       if (matches && matches.length > 3) {
-        const totalCost = matches[3];
-        const tonnage = matches[1];
-        const size = matches[2];
+        const totalCost = parseFloat(matches[3]);
+        const tonnage = parseFloat(matches[1]);
+        const size = parseFloat(matches[2]);
         var unit;
         var count;
         if(tonnage > size){
