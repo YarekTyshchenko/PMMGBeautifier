@@ -4,7 +4,6 @@
   "description": "Improve and tweak the interface elements of PrUn website",
   "version": "0.1.6",
   "icons": {
-    "16": "icon16.png",
     "128": "icon128.png"
   },
   "permissions": [
