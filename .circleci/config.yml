@@ -23,6 +23,9 @@ jobs:
           paths:
             - dist.zip
           root: ~/project
+      - store_artifacts:
+          path: dist.zip
+          destination: dist.zip
 workflows:
     build:
       jobs:
