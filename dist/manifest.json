@@ -7,12 +7,14 @@
     "128": "icon128.png"
   },
   "permissions": [
-    "https://apex.prosperousuniverse.com/*"
+    "https://apex.prosperousuniverse.com/*",
+    "http://localhost:8080/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://apex.prosperousuniverse.com/*"
+        "https://apex.prosperousuniverse.com/*",
+        "http://localhost:8080/*"
       ],
       "js": [
         "main.js"
