@@ -2,19 +2,17 @@
   "manifest_version": 2,
   "name": "PMMG Beautifier",
   "description": "Improve and tweak the interface elements of PrUn website",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "icons": {
     "128": "icon128.png"
   },
   "permissions": [
-    "https://apex.prosperousuniverse.com/*",
-    "http://localhost:8080/*"
+    "https://apex.prosperousuniverse.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://apex.prosperousuniverse.com/*",
-        "http://localhost:8080/*"
+        "https://apex.prosperousuniverse.com/*"
       ],
       "js": [
         "main.js"
