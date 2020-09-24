@@ -17,11 +17,10 @@ export class OrderETAs {
    * @private
    */
   private beautifyOrders() {
-    const elements = Array.from(document.querySelectorAll("div[class^='OrderSlot__info___'"));
-    elements.forEach((order) => {
-      // we are only interested in active orders, so check for progress bar first
-      if (order.querySelectorAll("span[class^='OrderStatus__inProgress___'").length > 0) {
-        const etaSpan = order.getElementsByTagName("span")[1].children[0];
+    const elements = Array.from(document.querySelectorAll("div[class~='_1a75pC9Q0YF44bObHykWIA'] div[class~='_1j-lU9fMFzEgedyKKsPDtL']"));
+    elements.forEach(etaDiv => {
+      const etaSpan = etaDiv.querySelector("span")
+      if (etaSpan) {
         this.beautifyEta(etaSpan);
       }
     });
@@ -32,19 +31,24 @@ export class OrderETAs {
    * @private
    */
   private beautifyProductionQueue() {
-    const elements = Array.from(document.querySelectorAll("tr > td[class^='ProductionQueue__orderTile___'"));
-    elements.forEach((order) => {
-      const tableRow = order.parentElement!!;
-      // we are only interested in active orders, so check for progress bar first
-      if(tableRow.querySelectorAll("span[class^='OrderStatus__inProgress___'").length > 0) {
-        const etaSpan = tableRow.children[4].children[0].children[0];
-        this.beautifyEta(etaSpan);
-      }
+    const tables = Array.from(document.querySelectorAll("table[class~='B5JEuqpNoN-VT8jmA8g3l']"));
+    tables.forEach(table => {
+      // Select 4th row, which should contain the ETA
+      const rows = Array.from(table.querySelectorAll("tbody > tr"))
+      rows.forEach(row => {
+        const etaCell = row.querySelectorAll("td").item(4)
+        if (etaCell) {
+          const etaSpan = etaCell.querySelector("span")
+          if (etaSpan) {
+            this.beautifyEta(etaSpan);
+          }
+        }
+      });
     });
   }
   private beautifyEta(etaSpan: Node){
     const eta = convertDurationToETA(etaSpan.textContent);
-    etaSpan.parentElement!!.appendChild(createTextSpan(` (${eta})`, this.tag));
+    etaSpan.parentElement!.appendChild(createTextSpan(` (${eta})`, this.tag));
   }
 
 }
