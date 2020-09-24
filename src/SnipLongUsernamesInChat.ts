@@ -7,16 +7,19 @@ export class SnipLongUsernamesInChat {
     });
   }
   run() {
-    const elements = Array.from(document.querySelectorAll("div[class^='Sender__container___'] div"));
-    elements.forEach(e => {
-      const username = e.textContent;
-      if (username && username.length > 12) {
-        e.textContent = username.slice(0, 12);
-        // Add a tooltip to show full username
-        e.setAttribute("title", username);
-        e.setAttribute("style", "text-decoration: underline dotted");
-        e.classList.add(this.tag);
-      }
-    })
+    const elements = Array.from(document.querySelectorAll("div[class~='_3m_Ejr5Pl7D-EzL6GwZUkz']"));
+    elements.forEach(chat => {
+      const usernames = Array.from(chat.querySelectorAll("div[class~='NluHQkHykO_N-3WefpAZF'] > div"))
+      usernames.forEach(e => {
+        const username = e.textContent;
+        if (username && username.length > 12) {
+          e.textContent = username.slice(0, 12);
+          // Add a tooltip to show full username
+          e.setAttribute("title", username);
+          e.setAttribute("style", "text-decoration: underline dotted");
+          e.classList.add(this.tag);
+        }
+      });
+    });
   }
 }

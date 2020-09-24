@@ -9,21 +9,16 @@ export class ParseETAs {
     genericCleanup(this.tag);
   }
   run() {
-    const elements = Array.from(document.querySelectorAll("table[class^='Fleet__table___'"));
-    elements.forEach((tableElem) => {
-      const tableRows = Array.from(tableElem.getElementsByTagName("tbody")[0].children);
-      tableRows.forEach((row) => {
-        // find first entry that is no button but contains a span
-        const targetRow = Array.from(row.children).reverse().find(elem =>
-          !!elem.querySelector(":scope > span")
-        );
-        if (targetRow) {
-          const childSpan = targetRow.getElementsByTagName("span")[0];
-          if (childSpan.textContent) {
-            const textContent = childSpan.textContent.split('(')[0];
-            const eta = convertDurationToETA(textContent);
-            targetRow.appendChild(createTextSpan(` (${eta})`, this.tag));
-          }
+    const elements = Array.from(document.querySelectorAll("table[class~='_38xIOphw1aA3t-LEbriQzq']"));
+    elements.forEach(tableElem => {
+      const tableRows = Array.from(tableElem.querySelectorAll("tbody > tr"));
+      tableRows.forEach(row => {
+        // 7th cell contains flight time
+        const etaCell = row.querySelectorAll("td").item(7);
+        if (etaCell.textContent) {
+          const textContent = etaCell.textContent.split('(')[0];
+          const eta = convertDurationToETA(textContent);
+          etaCell.appendChild(createTextSpan(` (${eta})`, this.tag));
         }
       });
     });
