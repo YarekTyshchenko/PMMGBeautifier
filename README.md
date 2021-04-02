@@ -5,7 +5,6 @@
 * Show the ETA in flightplan as actual date-time
 * Show the production order completion as actual date-time
 * Show price per shipload for shipping ads
-* Limit long user names in chat to 12 chars
 * Show price per unit when posting local market ads
 * Sort inventories by material code
 * Change LM Post button to the type of ad
