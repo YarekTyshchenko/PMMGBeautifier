@@ -43,10 +43,10 @@ export class QueueLoad {
             if (totalTime > 0) {
                 rows.forEach(row => {
                     const eta = this.getEtaFromRow(row);
-                    const percent = toFixed(eta / totalTime, 2);
+                    const percent = toFixed(eta / totalTime * 100, 2);
                     const textField = row.querySelectorAll("td").item(5);
                     if (textField && eta > 0) {
-                        const span = createTextSpan(` ${percent * 100}%`, this.tag);
+                        const span = createTextSpan(` ${percent}%`, this.tag);
                         textField.appendChild(span);
                     }
                 });
