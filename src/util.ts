@@ -4,6 +4,25 @@
  * @returns {string}
  */
 export function convertDurationToETA(duration) {
+  const parsedSeconds = parseDuration(duration);
+  const eta = new Date();
+  const now = new Date();
+  eta.setSeconds(eta.getSeconds() + parsedSeconds);
+  const diffTime = Math.abs(eta.getTime() - now.getTime());
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  let ret = eta.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+  if (diffDays > 0) {
+    ret += ` +${diffDays}d`;
+  }
+  return ret;
+}
+
+/**
+ * Parse duration into seconds
+ * @param duration string
+ */
+export function parseDuration(duration) {
   const days = duration.match(/(\d+)\s*d/);
   const hours = duration.match(/(\d+)\s*h/);
   const minutes = duration.match(/(\d+)\s*m/);
@@ -22,17 +41,7 @@ export function convertDurationToETA(duration) {
   if (seconds) {
     parsedSeconds += parseInt(seconds[1]);
   }
-  const eta = new Date();
-  const now = new Date();
-  eta.setSeconds(eta.getSeconds() + parsedSeconds);
-  const diffTime = Math.abs(eta.getTime() - now.getTime());
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-  let ret = eta.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
-  if (diffDays > 0) {
-    ret += ` +${diffDays}d`;
-  }
-  return ret;
+  return parsedSeconds;
 }
 
 /**
