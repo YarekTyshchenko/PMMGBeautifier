@@ -6,8 +6,8 @@
 * Show the production order completion as actual date-time
 * Show price per shipload for shipping ads
 * Show price per unit when posting local market ads
-* Sort inventories by material code
 * Change LM Post button to the type of ad
+* Calculate Queued production load in percentage
 
 # Installation
 [![CircleCI](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier.svg?style=shield)](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier)
