@@ -29,9 +29,9 @@ export class ShippingAds {
         }
 
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
-        const perItem = toFixed(totalCents / count / 100 * 400, 2);
+        const perItem = toFixed(totalCents / count / 100, 2);
         const priceSpan = element.querySelector(Selector.LMCommodityAdPriceSpan)!;
-        priceSpan.appendChild(createTextSpan(` (${perItem} per 400${unit})`, this.tag));
+        priceSpan.appendChild(createTextSpan(` (${perItem}/${unit})`, this.tag));
       }
     }
   }

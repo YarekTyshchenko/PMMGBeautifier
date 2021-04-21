@@ -4,7 +4,7 @@
 * Show the ETA of ships as actual date-time
 * Show the ETA in flightplan as actual date-time
 * Show the production order completion as actual date-time
-* Show price per shipload for shipping ads
+* Show price per ton/m3 for shipping ads
 * Show price per unit when posting local market ads
 * Change LM Post button to the type of ad
 * Calculate Queued production load in percentage
