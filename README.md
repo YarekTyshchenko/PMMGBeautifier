@@ -24,7 +24,8 @@ from others. If a module is causing performance problems, it can be disabled
 in the sidebar.
 
 If you want to add a feature start by doing this:
-- Clone this repository
+- Fork this repository on Github
+- Clone your forked repository
 - Create a branch with your feature's name
 - Temporarily disable PMMGBeautifier if you installed it via web store 
 - Follow setup instructions in the section below, and load your locally built copy
@@ -69,6 +70,8 @@ There is a test file that you can use while developing so you don't have to
 refresh the real website many times. Add snippets of HTML to it for your new
 features, but consider it a temporary tool, we might wipe it if it gets too
 out of hand
+
+Extensions loaded from disk have permissions to open local files, see: https://stackoverflow.com/a/19493206
 
 ## Chrome
 
