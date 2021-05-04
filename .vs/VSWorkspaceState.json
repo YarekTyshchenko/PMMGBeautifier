@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.circleci",
+    "\\dist",
+    "\\dist\\web-ext-artifacts",
+    "\\src",
+    "\\web-ext-artifacts"
+  ],
+  "SelectedNode": "\\src\\util.ts",
+  "PreviewInSolutionExplorer": false
+}
