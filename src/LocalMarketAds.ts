@@ -18,7 +18,7 @@ export class LocalMarketAds {
             const totalCents = parseInt(matches[2].replace(/[,.]/g, ''));
             const perItem = toFixed(totalCents / count / 100, 2);
             const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
-            const priceSpan = element.querySelector(Selector.LMCommodityAdPriceSpan)!;
+            const priceSpan = element.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
             entry.insertBefore(colorizeType(entry.childNodes[0].textContent, this.tag)!, entry.childNodes[1]);
             const adType = entry.childNodes[0].textContent;
             if (adType == "BUYING" || adType == "SELLING") {
