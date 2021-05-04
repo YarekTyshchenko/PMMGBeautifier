@@ -19,12 +19,29 @@ export class PostLM {
       const totalPriceInput = document.evaluate("div[label/span[text()='Total price']]/div/div/input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
 
       const displayElement = createTextSpan('-- ea', this.tag);
-      totalPriceInput.parentNode!.insertBefore(displayElement, totalPriceInput);
+        totalPriceInput.parentNode!.insertBefore(displayElement, totalPriceInput);
 
+        const type = document.evaluate(
+            "div[label/span[text()='Type']]/div/div",
+            form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
+        ).singleNodeValue as HTMLElement;
+        
       const calculatePricePerUnit = () => {
         const amount = parseInt(amountInput.value);
-        const total = parseInt(totalPriceInput.value);
-        displayElement.textContent = `${toFixed(total / amount, 1)} ea`;
+          const total = parseInt(totalPriceInput.value);
+          const postingFee = (document.evaluate("div[label/span[text()='Fees']]/div/div/div/span", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLSpanElement).innerText;
+          const postingFeeValue = parseInt(postingFee!.replace(/[,.]/g, '')) / 100;
+          var pricePerUnitWithFee;
+          switch (type.innerText) {
+              case "BUYING":
+                  pricePerUnitWithFee = toFixed((total + postingFeeValue) / amount, 2);
+                  break;
+              case "SELLING":
+                  pricePerUnitWithFee = toFixed((total - postingFeeValue) / amount, 2);
+                  break;
+          }
+          const pricePerUnit = toFixed(total / amount, 2);
+          displayElement.textContent = `${pricePerUnit}ea / ${pricePerUnitWithFee}ea`;
       };
       calculatePricePerUnit();
 
@@ -35,10 +52,6 @@ export class PostLM {
       })
 
       // Change CMD to better reflect what we are doing
-      const type = document.evaluate(
-        "div[label/span[text()='Type']]/div/div",
-        form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
-      ).singleNodeValue as HTMLElement;
       const postButton = document.evaluate(
         "div/div/button[text()='post']",
         form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
