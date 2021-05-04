@@ -18,7 +18,7 @@ export class PostLM {
 
       const totalPriceInput = document.evaluate("div[label/span[text()='Total price']]/div/div/input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
 
-      const displayElement = createTextSpan('-- ea', this.tag);
+        const displayElement = createTextSpan('-- ea', this.tag);
         totalPriceInput.parentNode!.insertBefore(displayElement, totalPriceInput);
 
         const type = document.evaluate(
