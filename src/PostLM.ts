@@ -41,7 +41,7 @@ export class PostLM {
                   break;
           }
           const pricePerUnit = toFixed(total / amount, 2);
-          displayElement.textContent = `${pricePerUnit}ea / ${pricePerUnitWithFee}ea`;
+          displayElement.textContent = `${pricePerUnit}ea \(${pricePerUnitWithFee}ea\)`;
       };
       calculatePricePerUnit();
 

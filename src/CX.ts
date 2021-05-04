@@ -7,8 +7,7 @@ export class CX {
         genericCleanup(this.tag);
     }
     run() {
-        const elements = document.querySelectorAll(Selector.CXOBTable);
-
+        const elements = document.querySelectorAll(Selector.CXOBTable + " > tbody > tr > td");
         for (let i = 0; i < elements.length; i++) {
             const element = elements[i];
             const text = element.textContent;
@@ -28,7 +27,7 @@ export class CX {
             }
         }
 
-        const orderAmountColumn = document.querySelectorAll(Selector.CXOrdersAmountHeader);
+        const orderAmountColumn = document.querySelectorAll(Selector.CXOrdersHeader + " > thead > tr > th");
         for (let i = 0; i < orderAmountColumn.length; i++) {
             const element = orderAmountColumn[i];
             const text = element.textContent;
@@ -38,7 +37,7 @@ export class CX {
             }
         }
 
-        const companies = document.querySelectorAll(Selector.CXOrdersCompanies);
+        const companies = document.querySelectorAll(Selector.CXOBTable + " > tbody > tr > td > span");
         for (let i = 0; i < companies.length; i++) {
             const element = companies[i];
             const text = element.textContent;

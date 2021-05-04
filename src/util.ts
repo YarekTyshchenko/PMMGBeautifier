@@ -4,18 +4,10 @@
  * @returns {string}
  */
 export function convertDurationToETA(duration) {
-  const parsedSeconds = parseDuration(duration);
+    const parsedSeconds = parseDuration(duration);
     const eta = new Date();
-  //const now = new Date();
+ 
   eta.setSeconds(eta.getSeconds() + parsedSeconds);
-  //const diffTime = Math.abs(eta.getTime() - now.getTime());
-  //const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-  /*let ret = eta.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'});
-  if (diffDays > 0) {
-    ret += ` +${diffDays}d`;
-  }*/
-    //let ret = eta.toLocaleString('en-GB', {month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'});
     let ret = eta.toISOString().substr(5, 11).replace("-", ".").replace("T", ". ");
   return ret;
 }
@@ -116,6 +108,7 @@ export function shorten(text) {
         "Glass": "GL",
         "Hydrogen": "H",
         "Oxygen": "O",
+        "FTL Fuel": "FF",
     }
 
     var re = new RegExp(Object.keys(mapObj).join("|"), "g");

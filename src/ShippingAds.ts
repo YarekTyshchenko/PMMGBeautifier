@@ -28,7 +28,7 @@ export class ShippingAds {
         }
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
-          const priceSpan = element.querySelector(Selector.LMCommodityAdPriceSpan)!;
+            const priceSpan = element.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
             const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
           entry.insertBefore(colorizeType("SHIPPING", this.tag)!, entry.childNodes[1]);
               entry.childNodes[0].textContent = "I";
