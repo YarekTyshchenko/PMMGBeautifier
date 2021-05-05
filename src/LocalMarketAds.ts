@@ -18,17 +18,26 @@ export class LocalMarketAds {
             const totalCents = parseInt(matches[2].replace(/[,.]/g, ''));
             const perItem = toFixed(totalCents / count / 100, 2);
             const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
-            const priceSpan = element.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
-            entry.insertBefore(colorizeType(entry.childNodes[0].textContent, this.tag)!, entry.childNodes[1]);
+
+            // get the data from the original element
             const adType = entry.childNodes[0].textContent;
-            if (adType == "BUYING" || adType == "SELLING") {
-                entry.childNodes[0].textContent = shorten(entry.childNodes[0].textContent);
-            }
-            entry.childNodes[2].textContent = shorten(entry.childNodes[2].textContent);
-            priceSpan.appendChild(createTextSpan(` (${perItem} ea) `, this.tag));
-            entry.childNodes[4].textContent = "";
-            entry.childNodes[5].textContent = "";
-            entry.childNodes[6].textContent = "";
+            const ware = shorten(entry.childNodes[1].textContent!);
+            const priceSpan = element.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
+            const timeLeft = entry.childNodes[6].textContent;
+
+            //entry.insertBefore(colorizeType(entry.childNodes[0].textContent, this.tag)!, entry.childNodes[1]);
+            
+            //if (adType == "BUYING" || adType == "SELLING") {
+                //entry.childNodes[0].textContent = shorten(entry.childNodes[0].textContent);
+            //}
+            //entry.childNodes[2].textContent = shorten(entry.childNodes[2].textContent);
+            //priceSpan.appendChild(createTextSpan(` (${perItem} ea) `, this.tag));
+            //entry.childNodes[4].textContent = "";
+            //entry.childNodes[5].textContent = "";
+            //entry.childNodes[6].textContent = "";
+            entry.childNodes[0].parentElement!.style.display = "None";
+            entry.parentElement!.appendChild(colorizeType(adType, this.tag)!);
+            entry.parentElement!.appendChild(createTextSpan(ware + priceSpan.textContent + ` (${perItem} ea) ` + timeLeft, this.tag)).style.whiteSpace = "pre-wrap";
         }
     }
   }

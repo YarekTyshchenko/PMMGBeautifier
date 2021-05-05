@@ -68,7 +68,7 @@ export function genericCleanup(className: string = "prun-remove-js") {
 export function toFixed(value: number, precision: number = 2) {
     const power = Math.pow(10, precision || 0);
     const number = Math.round(value * power) / power;
-    return number.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    return number.toLocaleString('en-GB', { maximumFractionDigits: 2 });
 }
 
 export function shorten(text) {
@@ -90,6 +90,7 @@ export function shorten(text) {
         "Basic Bulkhead": "BBH",
         "Flux": "FLX",
         "Mineral Construction Granulate": "MCG",
+        "Aluminium Ore": "ALO",
         "Aluminium": "AL",
         "Lightweight Deck Elements": "LDE",
         "Silicon": "SI",
@@ -109,6 +110,7 @@ export function shorten(text) {
         "Hydrogen": "H",
         "Oxygen": "O",
         "FTL Fuel": "FF",
+        "Steel": "STL",
     }
 
     var re = new RegExp(Object.keys(mapObj).join("|"), "g");
