@@ -68,7 +68,7 @@ export function genericCleanup(className: string = "prun-remove-js") {
 export function toFixed(value: number, precision: number = 2) {
     const power = Math.pow(10, precision || 0);
     const number = Math.round(value * power) / power;
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return number.toLocaleString('en-US', { maximumFractionDigits: 2 });
 }
 
 export function shorten(text) {
