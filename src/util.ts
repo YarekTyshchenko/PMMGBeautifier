@@ -111,6 +111,7 @@ export function shorten(text) {
         "Oxygen": "O",
         "FTL Fuel": "FF",
         "Steel": "STL",
+        "Nylon Fabric": "NL",
     }
 
     var re = new RegExp(Object.keys(mapObj).join("|"), "g");
@@ -126,28 +127,13 @@ export function colorizeType(type, tag) {
             FontColor(34, 139, 34, typeNode);
             return typeNode;
         }
-        case "B": {
-            const typeNode = createTextSpan("BUY", tag);
-            FontColor(34, 139, 34, typeNode);
-            return typeNode;
-        }
         case "SELLING": {
-            const typeNode = createTextSpan("SELL", tag);
-            FontColor(178, 34, 34, typeNode);
-            return typeNode;
-        }
-        case "S": {
-            const typeNode = createTextSpan("SELL", tag);
+            const typeNode = createTextSpan("SEL", tag);
             FontColor(178, 34, 34, typeNode);
             return typeNode;
         }
         case "SHIPPING": {
-            const typeNode = createTextSpan("SHIP ", tag);
-            FontColor(79, 130, 180, typeNode);
-            return typeNode;
-        }
-        case "I": {
-            const typeNode = createTextSpan("SHIP ", tag);
+            const typeNode = createTextSpan("SHI", tag);
             FontColor(79, 130, 180, typeNode);
             return typeNode;
         }
@@ -155,5 +141,8 @@ export function colorizeType(type, tag) {
 }
 
 export function FontColor(r, g, b, textHolder) {
-    textHolder.style.color = "rgb(" + r + "," + g + "," + b + ")"
+    textHolder.style.color = "rgb(" + r + "," + g + "," + b + ")";
+    textHolder.style.fontFamily = "courier";
+    textHolder.style.fontSize = "90%";
+    textHolder.style.fontWeight = "600";
 }

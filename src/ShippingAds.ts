@@ -29,30 +29,21 @@ export class ShippingAds {
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
             const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
+            let shownEntry = entry.cloneNode(true) as Element;
+            const priceSpan = shownEntry.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
 
-            // get the data from the original element
-            const ware = entry.childNodes[1].textContent! + entry.childNodes[2].textContent! + entry.childNodes[3].textContent + entry.childNodes[4].textContent;
-            const priceSpan = element.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
-            const from = entry.childNodes[7].textContent;
-            const to = entry.childNodes[9].textContent;
-            const timeLeft = entry.childNodes[11].textContent;
-
-          //entry.insertBefore(colorizeType("SHIPPING", this.tag)!, entry.childNodes[1]);
-              //entry.childNodes[0].textContent = "I";
-          //priceSpan.appendChild(createTextSpan(` (${perItem}/${unit})`, this.tag));
-//            entry.childNodes[11].textContent = "";
-
-            //entry.insertBefore(colorizeType(entry.childNodes[0].textContent, this.tag)!, entry.childNodes[1]);
-
-            //if (adType == "BUYING" || adType == "SELLING") {
-            //entry.childNodes[0].textContent = shorten(entry.childNodes[0].textContent);
-            //}
-            //entry.childNodes[2].textContent = shorten(entry.childNodes[2].textContent);
-            //priceSpan.appendChild(createTextSpan(` (${perItem} ea) `, this.tag));
+            priceSpan.appendChild(createTextSpan(` (${perItem}/${unit})`, this.tag));
 
             entry.childNodes[0].parentElement!.style.display = "None";
-            entry.parentElement!.appendChild(colorizeType("SHIPPING", this.tag)!);
-            entry.parentElement!.appendChild(createTextSpan(` ` + ware + priceSpan.textContent + ` (${perItem}/${unit}) from ` + from + ` to ` + to + ` ` + timeLeft, this.tag)).style.whiteSpace = "pre-wrap";
+            shownEntry.removeAttribute("style");
+
+            shownEntry.classList.add(this.tag);
+            shownEntry.replaceChild(colorizeType("SHIPPING", this.tag)!, shownEntry.childNodes[0]);
+            shownEntry.childNodes[1].textContent = ` ` + shownEntry.childNodes[1].textContent;
+            shownEntry.removeChild(shownEntry.childNodes[10]);
+
+            entry.parentElement!.appendChild(shownEntry);
+
       }
     }
   }
