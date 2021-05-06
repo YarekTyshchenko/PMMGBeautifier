@@ -12,6 +12,7 @@ export class LocalMarketAds {
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
         const text = element.childNodes[0].textContent;
+
         const matches = text && text.match(/(?:BUYING|SELLING)\s*(\d+)\s.*\s@\s([\d,.]+)\s[A-Z]+/);
         if (matches) {
             const count = parseInt(matches[1]);
@@ -35,8 +36,6 @@ export class LocalMarketAds {
             shownEntry.childNodes[5].textContent = "";
 
             entry.parentElement!.appendChild(shownEntry);
-
-
         }
     }
   }

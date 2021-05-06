@@ -8,6 +8,7 @@ export function convertDurationToETA(duration) {
     const eta = new Date();
  
     eta.setSeconds(eta.getSeconds() + parsedSeconds - eta.getTimezoneOffset() * 60);
+
     let ret = eta.toISOString().substr(5, 11).replace("-", ".").replace("T", ". ");
   return ret;
 }
@@ -68,6 +69,7 @@ export function genericCleanup(className: string = "prun-remove-js") {
 export function toFixed(value: number, precision: number = 2) {
     const power = Math.pow(10, precision || 0);
     const number = Math.round(value * power) / power;
+
     return number.toLocaleString('en-GB', { maximumFractionDigits: 2 });
 }
 
@@ -131,6 +133,7 @@ export function colorizeType(type, tag) {
             return typeNode;
         }
         case "SHIPPING": {
+
             const typeNode = createTextSpan("SHI", tag);
             FontColor(79, 130, 180, typeNode);
             return typeNode;

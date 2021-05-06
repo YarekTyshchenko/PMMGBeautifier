@@ -43,7 +43,6 @@ export class ShippingAds {
             shownEntry.removeChild(shownEntry.childNodes[10]);
 
             entry.parentElement!.appendChild(shownEntry);
-
       }
     }
   }
