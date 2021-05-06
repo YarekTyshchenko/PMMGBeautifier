@@ -6,6 +6,7 @@ import { ParseETAs } from "./ParseETAs";
 import { PostLM } from "./PostLM";
 import { ShippingAds } from "./ShippingAds";
 import { QueueLoad } from "./QueueLoad";
+import { CX } from "./CX";
 
 const runner = new ModuleRunner([
   new LocalMarketAds(),
@@ -14,7 +15,8 @@ const runner = new ModuleRunner([
   new FlightplanETAs(),
   new ShippingAds(),
   new PostLM(),
-  new QueueLoad(),
+    new QueueLoad(),
+    new CX()
 ]);
 (function () {
   runner.loop()

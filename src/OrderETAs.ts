@@ -1,4 +1,5 @@
-import {convertDurationToETA, createTextSpan, genericCleanup} from "./util";
+import { Selector } from "./Selector";
+import { convertParsedDurationToETA, createTextSpan, genericCleanup, parseDuration } from "./util";
 
 export class OrderETAs {
   private tag = "pb-order-eta";
@@ -8,47 +9,35 @@ export class OrderETAs {
   }
 
   run() {
-    this.beautifyOrders();
-    this.beautifyProductionQueue();
+      this.beautifyAggregateProductionQueue();
   }
 
-  /**
-   * Parse all orders (PROD Screen)
-   * @private
-   */
-  private beautifyOrders() {
-    const elements = Array.from(document.querySelectorAll("div[class~='_1a75pC9Q0YF44bObHykWIA'] div[class~='_1j-lU9fMFzEgedyKKsPDtL']"));
-    elements.forEach(etaDiv => {
-      const etaSpan = etaDiv.querySelector("span")
-      if (etaSpan) {
-        this.beautifyEta(etaSpan);
-      }
-    });
-  }
-
-  /**
-   * Parse all ProdQ orders
-   * @private
-   */
-  private beautifyProductionQueue() {
-    const tables = Array.from(document.querySelectorAll("table[class~='B5JEuqpNoN-VT8jmA8g3l']"));
-    tables.forEach(table => {
-      // Select 4th row, which should contain the ETA
-      const rows = Array.from(table.querySelectorAll("tbody > tr"))
-      rows.forEach(row => {
-        const etaCell = row.querySelectorAll("td").item(4)
-        if (etaCell) {
-          const etaSpan = etaCell.querySelector("span")
-          if (etaSpan) {
-            this.beautifyEta(etaSpan);
-          }
-        }
-      });
-    });
-  }
-  private beautifyEta(etaSpan: Node){
-    const eta = convertDurationToETA(etaSpan.textContent);
-    etaSpan.parentElement!.appendChild(createTextSpan(` (${eta})`, this.tag));
-  }
+    private beautifyAggregateProductionQueue() {
+        const prodLines = Array.from(document.querySelectorAll(Selector.ProdLine));
+        prodLines.forEach(line => {
+            const prodItems = Array.from(line.querySelectorAll("div[class='_1a75pC9Q0YF44bObHykWIA']"));
+            let sumTimes = Array();
+            for (let i = 0; i < prodItems.length; i++) {
+                const itemETA = (prodItems[i].querySelector("div[class='_2wCEB4yaom4TdA4cxLZhbr'] div[class='_1j-lU9fMFzEgedyKKsPDtL _3dW9W1Qi1zDylwVf7nNSih'] > span"));
+                if (itemETA) {
+                    const progress = (prodItems[i].querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']"));
+                    const etaValue = parseDuration(itemETA.textContent);
+                    if (progress) { // this item is already being produced, need to use the current value
+                        const eta = convertParsedDurationToETA(etaValue);
+                        const etaTag = createTextSpan(` (${eta})`, this.tag);
+                        progress.parentElement!.appendChild(etaTag);
+                        sumTimes.push(etaValue);
+                    }
+                    else { // item is in the queue, need to find the earliest slot it can start and add it there
+                        const lowestEta = Math.min(...sumTimes);
+                        const summedEta = lowestEta + etaValue;
+                        sumTimes[sumTimes.indexOf(lowestEta)] = summedEta;
+                        const eta = convertParsedDurationToETA(summedEta);
+                        prodItems[i].appendChild(createTextSpan(` (${eta})`, this.tag));
+                    }
+                }
+            }
+        });
+    }
 
 }

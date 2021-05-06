@@ -1,5 +1,5 @@
 import {Selector} from "./Selector";
-import {createTextSpan, genericCleanup, toFixed} from "./util";
+import {createTextSpan, genericCleanup, toFixed, colorizeType} from "./util";
 
 export class ShippingAds {
   private tag = "pb-shipping-ads";
@@ -12,9 +12,8 @@ export class ShippingAds {
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const text = element.textContent;
-      const matches = text && text.match(/(?:SHIPPING)\s([\d.]+)t\s\/\s([\d.]+)m³\s@\s([\d,.]+)\s[A-Z]+\sfrom/);
-
-      if (matches && matches.length > 3) {
+        const matches = text && text.match(/(?:SHIPPING)\s*([\d.]+)t\s\/\s([\d.]+)m³\s@\s([\d,.]+)\s[A-Z]+/);
+        if (matches) {
         const totalCost = matches[3];
         const tonnage = parseFloat(matches[1]);
         const size = parseFloat(matches[2]);
@@ -27,11 +26,24 @@ export class ShippingAds {
           unit = 'm³';
           count = size;
         }
-
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
-        const priceSpan = element.querySelector(Selector.LMCommodityAdPriceSpan)!;
-        priceSpan.appendChild(createTextSpan(` (${perItem}/${unit})`, this.tag));
+            const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
+            let shownEntry = entry.cloneNode(true) as Element;
+            const priceSpan = shownEntry.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
+
+            priceSpan.appendChild(createTextSpan(` (${perItem}/${unit})`, this.tag));
+
+            entry.childNodes[0].parentElement!.style.display = "None";
+            shownEntry.removeAttribute("style");
+
+            shownEntry.classList.add(this.tag);
+            shownEntry.replaceChild(colorizeType("SHIPPING", this.tag)!, shownEntry.childNodes[0]);
+            shownEntry.childNodes[1].textContent = ` ` + shownEntry.childNodes[1].textContent;
+            shownEntry.removeChild(shownEntry.childNodes[10]);
+
+            entry.parentElement!.appendChild(shownEntry);
+
       }
     }
   }
