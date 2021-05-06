@@ -7,7 +7,7 @@ export function convertDurationToETA(duration) {
     const parsedSeconds = parseDuration(duration);
     const eta = new Date();
  
-  eta.setSeconds(eta.getSeconds() + parsedSeconds);
+    eta.setSeconds(eta.getSeconds() + parsedSeconds - eta.getTimezoneOffset() * 60);
     let ret = eta.toISOString().substr(5, 11).replace("-", ".").replace("T", ". ");
   return ret;
 }
@@ -112,6 +112,7 @@ export function shorten(text) {
         "FTL Fuel": "FF",
         "Steel": "STL",
         "Nylon Fabric": "NL",
+        "Lightweight Bulkhead": "LBH",
     }
 
     var re = new RegExp(Object.keys(mapObj).join("|"), "g");
