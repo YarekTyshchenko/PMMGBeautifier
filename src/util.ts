@@ -7,7 +7,8 @@ export function convertDurationToETA(duration) {
     const parsedSeconds = parseDuration(duration);
     const eta = new Date();
  
-  eta.setSeconds(eta.getSeconds() + parsedSeconds);
+    eta.setSeconds(eta.getSeconds() + parsedSeconds - eta.getTimezoneOffset() * 60);
+
     let ret = eta.toISOString().substr(5, 11).replace("-", ".").replace("T", ". ");
   return ret;
 }
@@ -68,14 +69,12 @@ export function genericCleanup(className: string = "prun-remove-js") {
 export function toFixed(value: number, precision: number = 2) {
     const power = Math.pow(10, precision || 0);
     const number = Math.round(value * power) / power;
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    return number.toLocaleString('en-GB', { maximumFractionDigits: 2 });
 }
 
 export function shorten(text) {
     var mapObj = {
-        "BUYING": "B",
-        "SELLING": "S",
-        "SHIP": "I",
         "NEO Charter Exploration Market Maker": "NEO Charter MM",
         "Station Commodity Exchange": "CX",
         "Basic Rations": "RAT",
@@ -90,6 +89,7 @@ export function shorten(text) {
         "Basic Bulkhead": "BBH",
         "Flux": "FLX",
         "Mineral Construction Granulate": "MCG",
+        "Aluminium Ore": "ALO",
         "Aluminium": "AL",
         "Lightweight Deck Elements": "LDE",
         "Silicon": "SI",
@@ -109,6 +109,9 @@ export function shorten(text) {
         "Hydrogen": "H",
         "Oxygen": "O",
         "FTL Fuel": "FF",
+        "Steel": "STL",
+        "Nylon Fabric": "NL",
+        "Lightweight Bulkhead": "LBH",
     }
 
     var re = new RegExp(Object.keys(mapObj).join("|"), "g");
@@ -124,28 +127,14 @@ export function colorizeType(type, tag) {
             FontColor(34, 139, 34, typeNode);
             return typeNode;
         }
-        case "B": {
-            const typeNode = createTextSpan("BUY", tag);
-            FontColor(34, 139, 34, typeNode);
-            return typeNode;
-        }
         case "SELLING": {
-            const typeNode = createTextSpan("SELL", tag);
-            FontColor(178, 34, 34, typeNode);
-            return typeNode;
-        }
-        case "S": {
-            const typeNode = createTextSpan("SELL", tag);
+            const typeNode = createTextSpan("SEL", tag);
             FontColor(178, 34, 34, typeNode);
             return typeNode;
         }
         case "SHIPPING": {
-            const typeNode = createTextSpan("SHIP ", tag);
-            FontColor(79, 130, 180, typeNode);
-            return typeNode;
-        }
-        case "I": {
-            const typeNode = createTextSpan("SHIP ", tag);
+
+            const typeNode = createTextSpan("SHI", tag);
             FontColor(79, 130, 180, typeNode);
             return typeNode;
         }
@@ -153,5 +142,8 @@ export function colorizeType(type, tag) {
 }
 
 export function FontColor(r, g, b, textHolder) {
-    textHolder.style.color = "rgb(" + r + "," + g + "," + b + ")"
+    textHolder.style.color = "rgb(" + r + "," + g + "," + b + ")";
+    textHolder.style.fontFamily = "courier";
+    textHolder.style.fontSize = "90%";
+    textHolder.style.fontWeight = "600";
 }

@@ -12,23 +12,30 @@ export class LocalMarketAds {
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
         const text = element.childNodes[0].textContent;
-        const matches = text && text.match(/(?:BUYING|SELLING|B|S)\s*(\d+)\s.*\s@\s([\d,.]+)\s[A-Z]+/);
+
+        const matches = text && text.match(/(?:BUYING|SELLING)\s*(\d+)\s.*\s@\s([\d,.]+)\s[A-Z]+/);
         if (matches) {
-        const count = parseInt(matches[1]);
+            const count = parseInt(matches[1]);
             const totalCents = parseInt(matches[2].replace(/[,.]/g, ''));
             const perItem = toFixed(totalCents / count / 100, 2);
             const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
-            const priceSpan = element.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
-            entry.insertBefore(colorizeType(entry.childNodes[0].textContent, this.tag)!, entry.childNodes[1]);
+            let shownEntry = entry.cloneNode(true) as Element;
+
             const adType = entry.childNodes[0].textContent;
-            if (adType == "BUYING" || adType == "SELLING") {
-                entry.childNodes[0].textContent = shorten(entry.childNodes[0].textContent);
-            }
-            entry.childNodes[2].textContent = shorten(entry.childNodes[2].textContent);
+            const priceSpan = shownEntry.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
+
             priceSpan.appendChild(createTextSpan(` (${perItem} ea) `, this.tag));
-            entry.childNodes[4].textContent = "";
-            entry.childNodes[5].textContent = "";
-            entry.childNodes[6].textContent = "";
+            entry.childNodes[0].parentElement!.style.display = "None";
+            shownEntry.removeAttribute("style");
+
+            shownEntry.classList.add(this.tag);
+            shownEntry.replaceChild(colorizeType(adType, this.tag)!, shownEntry.childNodes[0]);
+            shownEntry.childNodes[1].textContent = shorten(shownEntry.childNodes[1].textContent);
+            shownEntry.childNodes[3].textContent = "";
+            shownEntry.childNodes[4].textContent = "";
+            shownEntry.childNodes[5].textContent = "";
+
+            entry.parentElement!.appendChild(shownEntry);
         }
     }
   }

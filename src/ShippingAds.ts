@@ -12,7 +12,7 @@ export class ShippingAds {
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const text = element.textContent;
-        const matches = text && text.match(/(?:SHIPPING|I)\s*([\d.]+)t\s\/\s([\d.]+)m³\s@\s([\d,.]+)\s[A-Z]+/);
+        const matches = text && text.match(/(?:SHIPPING)\s*([\d.]+)t\s\/\s([\d.]+)m³\s@\s([\d,.]+)\s[A-Z]+/);
         if (matches) {
         const totalCost = matches[3];
         const tonnage = parseFloat(matches[1]);
@@ -28,12 +28,21 @@ export class ShippingAds {
         }
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
-            const priceSpan = element.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
             const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
-          entry.insertBefore(colorizeType("SHIPPING", this.tag)!, entry.childNodes[1]);
-              entry.childNodes[0].textContent = "I";
-          priceSpan.appendChild(createTextSpan(` (${perItem}/${unit})`, this.tag));
-          entry.childNodes[11].textContent = "";
+            let shownEntry = entry.cloneNode(true) as Element;
+            const priceSpan = shownEntry.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
+
+            priceSpan.appendChild(createTextSpan(` (${perItem}/${unit})`, this.tag));
+
+            entry.childNodes[0].parentElement!.style.display = "None";
+            shownEntry.removeAttribute("style");
+
+            shownEntry.classList.add(this.tag);
+            shownEntry.replaceChild(colorizeType("SHIPPING", this.tag)!, shownEntry.childNodes[0]);
+            shownEntry.childNodes[1].textContent = ` ` + shownEntry.childNodes[1].textContent;
+            shownEntry.removeChild(shownEntry.childNodes[10]);
+
+            entry.parentElement!.appendChild(shownEntry);
       }
     }
   }
