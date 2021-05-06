@@ -19,10 +19,4 @@
       ]
     }
   ],
-  "applications": {
-    "gecko": {
-      "id": "asd@example.com",
-      "update_url": "https://your_server_location_where_you_host_zips/updates.json"
-    }
-  }
 }
