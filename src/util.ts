@@ -73,9 +73,6 @@ export function toFixed(value: number, precision: number = 2) {
 
 export function shorten(text) {
     var mapObj = {
-        "BUYING": "B",
-        "SELLING": "S",
-        "SHIP": "I",
         "NEO Charter Exploration Market Maker": "NEO Charter MM",
         "Station Commodity Exchange": "CX",
         "Basic Rations": "RAT",

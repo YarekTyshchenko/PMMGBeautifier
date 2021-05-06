@@ -20,9 +20,17 @@ export class OrderETAs {
             for (let i = 0; i < prodItems.length; i++) {
                 const itemETA = (prodItems[i].querySelector(Selector.ProdLineItemData + " > span"));
                 if (itemETA) {
+                    const progress = (prodItems[i].querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']"));
                     sumTime = sumTime + parseDuration(itemETA.textContent);
                     const eta = convertParsedDurationToETA(sumTime);
-                    prodItems[i].appendChild(createTextSpan(` (${eta})`, this.tag));
+                    const etaTag = createTextSpan(` (${eta})`, this.tag);
+                    if (progress) {
+                        etaTag.style.color = "#b0b0b0";
+                        progress.appendChild(etaTag);   
+                    }
+                    else {
+                        prodItems[i].appendChild(etaTag);
+                    }
                 }
             }
         });
