@@ -112,6 +112,8 @@ export function shorten(text) {
         "Steel": "STL",
         "Nylon Fabric": "NL",
         "Lightweight Bulkhead": "LBH",
+        "Raw Cotton Fiber": "RCO",
+        "High-Carb Maize": "MAI",
     }
 
     var re = new RegExp(Object.keys(mapObj).join("|"), "g");
