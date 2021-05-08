@@ -43,7 +43,7 @@ export class ShippingAds {
             shownEntry.childNodes[6].textContent = `\n`;
             shownEntry.childNodes[7].textContent = shownEntry.childNodes[7].textContent!.replace(/ *\([^)]*\) */g, "");
             shownEntry.childNodes[8].textContent = `->`;
-            shownEntry.childNodes[9].textContent = shownEntry.childNodes[9].textContent!.replace(/ *\([^)]*\) */g, "\s");
+            shownEntry.childNodes[9].textContent = shownEntry.childNodes[9].textContent!.replace(/ *\([^)]*\) */g, " ");
             shownEntry.removeChild(shownEntry.childNodes[10]);
             shownEntry.style.whiteSpace = "pre-wrap";
             entry.parentElement!.appendChild(shownEntry);
