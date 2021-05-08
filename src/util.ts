@@ -114,6 +114,7 @@ export function shorten(text) {
         "Lightweight Bulkhead": "LBH",
         "Raw Cotton Fiber": "RCO",
         "High-Carb Maize": "MAI",
+        "partially filled": "part fill",
     }
 
     var re = new RegExp(Object.keys(mapObj).join("|"), "g");
