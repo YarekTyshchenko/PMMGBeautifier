@@ -29,7 +29,7 @@ export class ShippingAds {
         const totalCents = parseInt(totalCost.replace(/[,.]/g, ''));
         const perItem = toFixed(totalCents / count / 100, 2);
             const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
-            let shownEntry = entry.cloneNode(true) as Element;
+            let shownEntry = entry.cloneNode(true) as HTMLElement;
             const priceSpan = shownEntry.querySelector(Selector.LMCommodityAdInnerText + " > span")!;
 
             priceSpan.appendChild(createTextSpan(` (${perItem}/${unit})`, this.tag));
@@ -40,12 +40,14 @@ export class ShippingAds {
             shownEntry.classList.add(this.tag);
             shownEntry.replaceChild(colorizeType("SHIPPING", this.tag)!, shownEntry.childNodes[0]);
             shownEntry.childNodes[1].textContent = ` ` + shownEntry.childNodes[1].textContent;
-            shownEntry.childNodes[6].textContent = ` `;
+            shownEntry.childNodes[6].textContent = `\n`;
+            shownEntry.childNodes[7].textContent = shownEntry.childNodes[7].textContent!.replace(/ *\([^)]*\) */g, "");
             shownEntry.childNodes[8].textContent = `->`;
+            shownEntry.childNodes[9].textContent = shownEntry.childNodes[9].textContent!.replace(/ *\([^)]*\) */g, "\s");
             shownEntry.removeChild(shownEntry.childNodes[10]);
-
+            shownEntry.style.whiteSpace = "pre-wrap";
             entry.parentElement!.appendChild(shownEntry);
-      }
+        }
     }
   }
 }
