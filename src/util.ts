@@ -70,7 +70,7 @@ export function toFixed(value: number, precision: number = 2) {
     const power = Math.pow(10, precision || 0);
     const number = Math.round(value * power) / power;
 
-    return number.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+    return number.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 export function shorten(text) {
@@ -115,6 +115,7 @@ export function shorten(text) {
         "Raw Cotton Fiber": "RCO",
         "High-Carb Maize": "MAI",
         "partially filled": "part fill",
+        "Copper": "CU",
     }
 
     var re = new RegExp(Object.keys(mapObj).join("|"), "g");
@@ -127,7 +128,7 @@ export function colorizeType(type, tag) {
     switch (type) {
         case "BUYING": {
             const typeNode = createTextSpan("BUY", tag);
-            FontColor(34, 139, 34, typeNode);
+            FontColor(60, 179, 113, typeNode);
             return typeNode;
         }
         case "SELLING": {
@@ -144,7 +145,7 @@ export function colorizeType(type, tag) {
     }
 }
 
-export function FontColor(r, g, b, textHolder) {
+function FontColor(r, g, b, textHolder) {
     textHolder.style.color = "rgb(" + r + "," + g + "," + b + ")";
     textHolder.style.fontFamily = "courier";
     textHolder.style.fontSize = "90%";

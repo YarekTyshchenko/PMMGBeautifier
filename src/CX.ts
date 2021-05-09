@@ -1,5 +1,5 @@
 import { Selector } from "./Selector";
-import { genericCleanup, shorten, } from "./util";
+import { genericCleanup, shorten, toFixed } from "./util";
 
 export class CX {
     private tag = "pb-cx";
@@ -57,32 +57,57 @@ export class CX {
             }
         }
 
-        const orderMatNameHeader = document.querySelector(Selector.CXOrdersTable + " > thead > tr > th:nth-of-type(4)") as HTMLElement;
-        orderMatNameHeader.style.display = "None";
-
-        const orderRows = document.querySelectorAll(Selector.CXOBTable + " > th");
-
-        // !!! this works !!! nwwss refactoring
-        /*
-        const orderMatName = document.querySelectorAll(Selector.CXOrdersHeader + " > tbody > tr > td:nth-of-type(4) > span");
-        for (let i = 0; i < orderStatus.length; i++) {
-            orderMatName[i].parentElement!.style.display = "None";
-        }
-
-        const orderButtonsHeader = document.querySelector(Selector.CXOrdersHeader + " > thead > tr > th:nth-of-type(8)");
-        const newHeader = document.createElement("th");
-        newHeader.classList.add(this.tag);
-        newHeader.textContent = "Value";
-        orderButtonsHeader!.parentElement!.insertBefore(newHeader, orderButtonsHeader);
-
-        const orderButtons = document.querySelectorAll(Selector.CXOrdersHeader + " > tbody > tr > td:nth-of-type(8)");
-        for (let i = 0; i < orderButtons.length; i++) {
-            const btnCell = orderButtons[i];
-            const newCell = document.createElement("td");
-            newCell.classList.add(this.tag);
-            newCell.textContent = "asd";
-            btnCell.parentElement!.insertBefore(newCell, btnCell);
-        }
-        */
+        workCXOSHeader(this.tag);
+        workCXOSRows(this.tag);
     }
+}
+
+const hideMatNameColumn: boolean = true;
+const addOrderValueColumn: boolean = true;
+
+function workCXOSHeader(tag) {
+    const CXOSHeader = document.querySelector(Selector.CXOrdersTable + " > thead > tr")!;
+    if (CXOSHeader) {
+        if (hideMatNameColumn) {
+            const orderMatNameHeader = CXOSHeader.querySelector("th:nth-of-type(4)") as HTMLElement;
+            orderMatNameHeader.style.display = "None";
+        }
+        if (addOrderValueColumn) {
+            const orderStatusHeader = CXOSHeader.querySelector("th:nth-of-type(7)");
+            const newHeader = document.createElement("th");
+            newHeader.classList.add(tag);
+            newHeader.textContent = "Value";
+            CXOSHeader.insertBefore(newHeader, orderStatusHeader);
+        }
+    }
+}
+
+function workCXOSRows(tag) {
+    const orderRows = document.querySelectorAll(Selector.CXOrdersTable + " > tbody > tr");
+    Array.from(orderRows).forEach((row) => {
+        //console.warn(row);
+        if (hideMatNameColumn) {
+            const matNameCell = row.querySelector("td:nth-of-type(4)") as HTMLElement;
+            matNameCell.style.display = "None";
+        }
+        if (addOrderValueColumn) {
+            const orderStatusCell = row.querySelector("td:nth-of-type(7)");
+            if (orderStatusCell!.childElementCount) {
+                const amount = parseInt(row.querySelector("td:nth-of-type(5)")!.childNodes[0].textContent!.replace(/[,.]/g, ''));
+                const unitPrice = parseInt(row.querySelector("td:nth-of-type(6)")!.childNodes[0].textContent!.replace(/[,.]/g, '')) / 100;
+                const type = row.querySelector("td:nth-of-type(2)")!.textContent;
+                const newCell = document.createElement("td");
+                newCell.classList.add(tag);
+                newCell.textContent = toFixed(amount * unitPrice, 2);
+                newCell.style.textAlign = "right";
+                if (type == "BUY") {
+                    newCell.style.color = "#50c878";
+                }
+                if (type == "SELL") {
+                    newCell.style.color = "#d0312d";
+                }
+                row.insertBefore(newCell, orderStatusCell);
+            }
+        }
+    });
 }
