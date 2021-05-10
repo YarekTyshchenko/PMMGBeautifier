@@ -74,53 +74,14 @@ export function toFixed(value: number, precision: number = 2) {
 }
 
 export function shorten(text) {
-    var mapObj = {
+    const shortTable = {
         "NEO Charter Exploration Market Maker": "NEO Charter MM",
         "Station Commodity Exchange": "CX",
-        "Basic Rations": "RAT",
-        "Limestone": "LST",
-        "Iron Ore": "FEO",
-        "Iron": "FE",
-        "Drinking Water": "DW",
-        "Basic Structural Elements": "BSE",
-        "Basic Overalls": "OVE",
-        "Carbon": "C",
-        "Polymer Granulate": "PG",
-        "Basic Bulkhead": "BBH",
-        "Flux": "FLX",
-        "Mineral Construction Granulate": "MCG",
-        "Aluminium Ore": "ALO",
-        "Aluminium": "AL",
-        "Lightweight Deck Elements": "LDE",
-        "Silicon": "SI",
-        "Silicon Ore": "SIO",
-        "Hydrocarbon Plants": "HCP",
-        "Poly-Ethylene": "PE",
-        "Lightweight Structural Elements": "LSE",
-        "Basic Transparent Aperture": "BTA",
-        "Basic Deck Elements": "BDE",
-        "Padded work overall": "PWO",
-        "Exoskeleton Work Suit": "EXO",
-        "Power Tools": "PT",
-        "Caffeinated Infusion": "CAF",
-        "Truss": "TRU",
-        "Polymer Sheet Type L": "PSL",
-        "Glass": "GL",
-        "Hydrogen": "H",
-        "Oxygen": "O",
-        "FTL Fuel": "FF",
-        "Steel": "STL",
-        "Nylon Fabric": "NL",
-        "Lightweight Bulkhead": "LBH",
-        "Raw Cotton Fiber": "RCO",
-        "High-Carb Maize": "MAI",
-        "partially filled": "part fill",
-        "Copper": "CU",
     }
 
-    var re = new RegExp(Object.keys(mapObj).join("|"), "g");
+    var re = new RegExp(Object.keys(shortTable).join("|"), "g");
     return text.replace(re, function (matched: string) {
-        return mapObj[matched];
+        return shortTable[matched];
     });
 }
 

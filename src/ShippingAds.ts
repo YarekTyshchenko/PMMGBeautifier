@@ -40,7 +40,7 @@ export class ShippingAds {
             shownEntry.classList.add(this.tag);
             shownEntry.replaceChild(colorizeType("SHIPPING", this.tag)!, shownEntry.childNodes[0]);
             shownEntry.childNodes[1].textContent = ` ` + shownEntry.childNodes[1].textContent;
-            shownEntry.childNodes[6].textContent = `\n`;
+            shownEntry.childNodes[6].textContent = ` `;
             shownEntry.childNodes[7].textContent = shownEntry.childNodes[7].textContent!.replace(/ *\([^)]*\) */g, "");
             shownEntry.childNodes[8].textContent = `->`;
             shownEntry.childNodes[9].textContent = shownEntry.childNodes[9].textContent!.replace(/ *\([^)]*\) */g, " ");
