@@ -46,7 +46,7 @@ export function shortenMatName(text) {
         'Nano-Enhanced Resin': 'NR',
         'Nutrient Solution': 'NS',
         'Olfactory Substances': 'OLF',
-        'DDT Plant Agent': 'DDTR',
+        'DDT Plant Agent': 'DDT',
         'Premium Fertilizer': 'PFE',
         'Sedative Substance': 'JUI',
         'TCL Acid': 'TC',
@@ -407,6 +407,9 @@ export function shortenMatName(text) {
         'Office Supplies': 'OFF',
         'Safety Uniform': 'SUN',
         'Universal Toolset': 'UTS',
+
+        // misc
+        'Core Module Kit': 'CMK',
     }
 
     return shortTable[text] || text;

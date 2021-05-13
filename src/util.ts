@@ -77,6 +77,8 @@ export function shorten(text) {
     const shortTable = {
         "NEO Charter Exploration Market Maker": "NEO Charter MM",
         "Station Commodity Exchange": "CX",
+        "Currency": "Cur",
+        "Amount": "Amt",
     }
 
     var re = new RegExp(Object.keys(shortTable).join("|"), "g");

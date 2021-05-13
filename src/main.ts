@@ -7,16 +7,18 @@ import { PostLM } from "./PostLM";
 import { ShippingAds } from "./ShippingAds";
 import { QueueLoad } from "./QueueLoad";
 import { CX } from "./CX";
+import { FIN } from "./FIN";
 
 const runner = new ModuleRunner([
-  new LocalMarketAds(),
-  new ParseETAs(),
-  new OrderETAs(),
-  new FlightplanETAs(),
-  new ShippingAds(),
-  new PostLM(),
+    new LocalMarketAds(),
+    new ParseETAs(),
+    new OrderETAs(),
+    new FlightplanETAs(),
+    new ShippingAds(),
+    new PostLM(),
     new QueueLoad(),
-    new CX()
+    new CX(),
+    new FIN()
 ]);
 (function () {
   runner.loop()
