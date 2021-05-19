@@ -6,7 +6,7 @@ import { ParseETAs } from "./ParseETAs";
 import { PostLM } from "./PostLM";
 import { ShippingAds } from "./ShippingAds";
 import { QueueLoad } from "./QueueLoad";
-import { CX } from "./CX";
+import { CXFX } from "./CXFX";
 import { FIN } from "./FIN";
 
 const runner = new ModuleRunner([
@@ -17,7 +17,7 @@ const runner = new ModuleRunner([
     new ShippingAds(),
     new PostLM(),
     new QueueLoad(),
-    new CX(),
+    new CXFX(),
     new FIN()
 ]);
 (function () {

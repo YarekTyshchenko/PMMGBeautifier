@@ -1,7 +1,7 @@
 import { Selector } from "./Selector";
 import { genericCleanup, shorten, toFixed } from "./util";
 
-export class CX {
+export class CXFX {
     private tag = "pb-cx";
     cleanup() {
         genericCleanup(this.tag);
@@ -18,7 +18,8 @@ export class CX {
             }
         }
 
-        const companies = document.querySelectorAll(Selector.CXOBTable + " > tbody > tr > td > span");
+        // CXOB + FXOB
+        const companies = Array.from(document.querySelectorAll(Selector.CXOBTable + " > tbody > tr > td > span")).concat(Array.from(document.querySelectorAll(Selector.FXOBTable + " > tbody > tr > td > span")));
         for (let i = 0; i < companies.length; i++) {
             const element = companies[i];
             const text = element.textContent;
