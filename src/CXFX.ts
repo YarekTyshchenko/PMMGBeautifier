@@ -12,7 +12,7 @@ run() {
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
         const text = element.textContent;
-        const matches = text && text.match(/^NEO Charter Exploration Market Maker$/);
+        const matches = text && text.match(/Market Maker$/);
         if (matches) {
             element.textContent = shorten(text);
         }

@@ -76,6 +76,9 @@ export function toFixed(value: number, precision: number = 2) {
 export function shorten(text) {
     const shortTable = {
         "NEO Charter Exploration Market Maker": "NEO Charter MM",
+        "Antares Initiative Market Maker": "Antares MM",
+        "Insitor Cooperative Market Maker": "Insitor MM",
+        "Castillo-Ito Mercantile Market Maker": "Castillo-Ito MM",
         "Station Commodity Exchange": "CX",
         "Currency": "Cur",
         "Amount": "Amt",
