@@ -8,6 +8,7 @@
 * Show price per unit when posting local market ads
 * Change LM Post button to the type of ad
 * Calculate Queued production load in percentage
+* In CXOS buffer open CXOB buffer when clicking ticker link instead of CXP 
 
 # Installation
 [![CircleCI](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier.svg?style=shield)](https://circleci.com/gh/YarekTyshchenko/PMMGBeautifier)

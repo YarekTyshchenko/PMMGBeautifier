@@ -69,3 +69,21 @@ export function toFixed(value: number, precision: number = 2) {
   const power = Math.pow(10, precision || 0);
   return Math.round(value * power) / power;
 }
+
+function loadScriptFromText(text: string) {
+  const scriptElement = document.createElement("script");
+  scriptElement.textContent = text;
+  (document.head || document.documentElement).appendChild(scriptElement);
+}
+
+const openBufferEventName = "pb-openbuffer"
+loadScriptFromText(`document.addEventListener('${openBufferEventName}', function (e) {
+  const cmd = e.detail;
+  const root = document.getElementById('container');
+  if (root)
+    root._reactRootContainer._internalRoot.current.child.child.child.child.child.child.child.child.child.child.child.child.pendingProps.openBuffer(cmd)
+});`)
+
+export function openBuffer(cmd?: string) {
+  document.dispatchEvent(new CustomEvent(openBufferEventName, { detail: cmd }));
+}
