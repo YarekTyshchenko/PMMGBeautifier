@@ -1,5 +1,5 @@
 import { Selector } from "./Selector";
-import { genericCleanup, shorten, toFixed } from "./util";
+import { genericCleanup, shorten, toFixed, openBuffer } from "./util";
 
 export class CXFX {
   private tag = "pb-cx";
@@ -65,6 +65,7 @@ export class CXFX {
 
 const hideMatNameColumn: boolean = true;
 const addOrderValueColumn: boolean = true;
+const changeTickerLink: boolean = true;
 
 function workCXOSHeader(tag) {
   const CXOSHeader = document.querySelector(Selector.CXOrdersTable + " > thead > tr")!;
@@ -108,6 +109,16 @@ function workCXOSRows(tag) {
         }
         row.insertBefore(newCell, orderStatusCell);
       }
-    }
+      }
+      if (changeTickerLink) {
+          const tickerSpan = row.querySelector("td:nth-of-type(3) > span");
+          tickerSpan!.addEventListener("click", openCXOB);
+      }
   });
+}
+
+function openCXOB(e: Event) {
+    e.stopImmediatePropagation();
+    const span: HTMLSpanElement = e.target as any;
+    openBuffer("CXOB " + span.textContent);
 }
