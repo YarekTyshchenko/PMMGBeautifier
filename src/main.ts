@@ -7,6 +7,7 @@ import { PostLM } from "./PostLM";
 import { QueueLoad } from "./QueueLoad";
 import { CXFX } from "./CXFX";
 import { FIN } from "./FIN";
+import { CXOS } from "./CXOS";
 
 const runner = new ModuleRunner([
     new LocalMarketAds(),
@@ -16,7 +17,8 @@ const runner = new ModuleRunner([
     new PostLM(),
     new QueueLoad(),
     new CXFX(),
-    new FIN()
+    new FIN(),
+    new CXOS()
 ]);
 (function () {
   runner.loop()
