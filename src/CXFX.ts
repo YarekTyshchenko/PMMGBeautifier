@@ -112,7 +112,9 @@ function workCXOSRows(tag) {
       }
       if (changeTickerLink) {
           const tickerSpan = row.querySelector("td:nth-of-type(3) > span");
-          tickerSpan!.addEventListener("click", openCXOB);
+          if (tickerSpan) {
+              tickerSpan!.addEventListener("click", openCXOB);
+          }
       }
   });
 }
