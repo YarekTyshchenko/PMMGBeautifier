@@ -20,7 +20,7 @@ export class OrderETAs {
             for (let i = 0; i < prodItems.length; i++) {
                 const itemETA = (prodItems[i].querySelector("div[class='_2wCEB4yaom4TdA4cxLZhbr'] div[class='_1j-lU9fMFzEgedyKKsPDtL _3dW9W1Qi1zDylwVf7nNSih'] > span"));
                 if (itemETA) {
-                    const progress = (prodItems[i].querySelector("span:nth-of-type(2)") && prodItems[i].querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']"));
+                    const progress = (prodItems[i].querySelector("span:nth-of-type(2)") && (prodItems[i].querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']") || prodItems[i].querySelector("span[class='_2KbBUUZxADDNHtAW9ouHrP _1UD8Nq_edzxyMXDliVlb9d']")));
                     const etaValue = parseDuration(itemETA.textContent);
                     if (progress) { // this item is already being produced, need to use the current value
                         const eta = convertParsedDurationToETA(etaValue);
@@ -29,6 +29,7 @@ export class OrderETAs {
                         sumTimes.push(etaValue);
                     }
                     else { // item is in the queue, need to find the earliest slot it can start and add it there
+                        console.warn(itemETA.textContent, etaValue);
                         const lowestEta = Math.min(...sumTimes);
                         const summedEta = lowestEta + etaValue;
                         sumTimes[sumTimes.indexOf(lowestEta)] = summedEta;
