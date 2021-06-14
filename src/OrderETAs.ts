@@ -29,7 +29,6 @@ export class OrderETAs {
                         sumTimes.push(etaValue);
                     }
                     else { // item is in the queue, need to find the earliest slot it can start and add it there
-                        console.warn(itemETA.textContent, etaValue);
                         const lowestEta = Math.min(...sumTimes);
                         const summedEta = lowestEta + etaValue;
                         sumTimes[sumTimes.indexOf(lowestEta)] = summedEta;
