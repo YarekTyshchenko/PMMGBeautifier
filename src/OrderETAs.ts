@@ -25,15 +25,19 @@ export class OrderETAs {
                     if (progress) { // this item is already being produced, need to use the current value
                         const eta = convertParsedDurationToETA(etaValue);
                         const etaTag = createTextSpan(` (${eta})`, this.tag);
-                        progress.parentElement!.appendChild(etaTag);
-                        sumTimes.push(etaValue);
+                        if (progress.parentElement && etaTag) {
+                            progress.parentElement.appendChild(etaTag);
+                            sumTimes.push(etaValue);
+                        }
                     }
                     else { // item is in the queue, need to find the earliest slot it can start and add it there
                         const lowestEta = Math.min(...sumTimes);
                         const summedEta = lowestEta + etaValue;
                         sumTimes[sumTimes.indexOf(lowestEta)] = summedEta;
                         const eta = convertParsedDurationToETA(summedEta);
-                        prodItems[i].appendChild(createTextSpan(` (${eta})`, this.tag));
+                        if (prodItems[i] && eta) {
+                            prodItems[i].appendChild(createTextSpan(` (${eta})`, this.tag));
+                        }
                     }
                 }
             }
