@@ -120,7 +120,7 @@ export function shortenMatName(text) {
         // Consumables (luxury)
         'Einsteinium-Infused Gin': 'GIN',
         'VitaGel': 'VG',
-        'Padded work overall': 'PWO',
+        'Padded Work Overall': 'PWO',
         'Caffeinated Infusion': 'COF',
         'Smart Zinfandel': 'WIN',
         'NeuroStimulants': 'NST',
@@ -158,11 +158,11 @@ export function shortenMatName(text) {
         'Memory Bank': 'RAM',
         'Micro-Processor': 'MPC',
         'Motherboard': 'MB',
-        'non-volatile Memory': 'ROM',
+        'Non-Volatile Memory': 'ROM',
         'Printed Circuit Board': 'PCB',
         'Sensor': 'SEN',
         'Tensor Processing Unit': 'TPU',
-        'Capacitative Display': 'CD',
+        'Capacitive Display': 'CD',
         'Information Display': 'DIS',
 
         // Electronic Pieces
@@ -378,7 +378,7 @@ export function shortenMatName(text) {
 
         // Textiles
         'Ceramic Fabric': 'CF',
-        'Ceramic-tungsten Fabric': 'CTF',
+        'Ceramic-Tungsten Fabric': 'CTF',
         'Cotton Fabric': 'COT',
         'Kevlar Fabric': 'KV',
         'Nylon Fabric': 'NL',

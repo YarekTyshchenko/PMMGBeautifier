@@ -117,21 +117,3 @@ function FontColor(r, g, b, textHolder) {
     textHolder.style.fontSize = "90%";
     textHolder.style.fontWeight = "600";
 }
-
-function loadScriptFromText(text: string) {
-    const scriptElement = document.createElement("script");
-    scriptElement.textContent = text;
-    (document.head || document.documentElement).appendChild(scriptElement);
-}
-
-const openBufferEventName = "pb-openbuffer"
-loadScriptFromText(`document.addEventListener('${openBufferEventName}', function (e) {
-  const cmd = e.detail;
-  const root = document.getElementById('container');
-  if (root)
-    root._reactRootContainer._internalRoot.current.child.child.child.child.child.child.child.child.child.child.child.child.pendingProps.openBuffer(cmd)
-});`)
-
-export function openBuffer(cmd?: string) {
-    document.dispatchEvent(new CustomEvent(openBufferEventName, { detail: cmd }));
-}
