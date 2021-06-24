@@ -1,5 +1,5 @@
 import { Selector } from "./Selector";
-import { genericCleanup, shorten, toFixed, openBuffer } from "./util";
+import { genericCleanup, shorten, toFixed } from "./util";
 
 export class CXFX {
     private tag = "pb-cx";
