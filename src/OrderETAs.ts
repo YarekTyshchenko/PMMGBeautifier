@@ -22,7 +22,7 @@ export class OrderETAs {
                 if (itemETA) {
                     const progress = (prodItems[i].querySelector("span:nth-of-type(2)") && (prodItems[i].querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']") || prodItems[i].querySelector("span[class='_2KbBUUZxADDNHtAW9ouHrP _1UD8Nq_edzxyMXDliVlb9d']")));
                     const etaValue = parseDuration(itemETA.textContent);
-                    if (progress) { // this item is already being produced, need to use the current value
+                    if (progress && etaValue) { // this item is already being produced, need to use the current value
                         const eta = convertParsedDurationToETA(etaValue);
                         const etaTag = createTextSpan(` (${eta})`, this.tag);
                         if (progress.parentElement && etaTag) {
@@ -30,7 +30,7 @@ export class OrderETAs {
                             sumTimes.push(etaValue);
                         }
                     }
-                    else { // item is in the queue, need to find the earliest slot it can start and add it there
+                    else if (etaValue) { // item is in the queue, need to find the earliest slot it can start and add it there
                         const lowestEta = Math.min(...sumTimes);
                         const summedEta = lowestEta + etaValue;
                         sumTimes[sumTimes.indexOf(lowestEta)] = summedEta;
