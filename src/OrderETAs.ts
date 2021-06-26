@@ -18,7 +18,7 @@ export class OrderETAs {
             const prodItems = Array.from(line.querySelectorAll("div[class='_1a75pC9Q0YF44bObHykWIA']"));
             let sumTimes = Array();
             for (let i = 0; i < prodItems.length; i++) {
-                const itemETA = (prodItems[i].querySelector("div[class='_2wCEB4yaom4TdA4cxLZhbr'] div[class='_1j-lU9fMFzEgedyKKsPDtL _3dW9W1Qi1zDylwVf7nNSih'] > span"));
+                const itemETA = (prodItems[i].querySelector("div[class='_1j-lU9fMFzEgedyKKsPDtL _3dW9W1Qi1zDylwVf7nNSih'] > span"));
                 if (itemETA) {
                     const progress = prodItems[i].querySelector("span:nth-of-type(2)");
                     const etaValue = parseDuration(itemETA.textContent);
@@ -28,9 +28,8 @@ export class OrderETAs {
                         const recurring = prodItems[i].querySelector("span[class='_29auS2ZKnkxm6ry4JazqA6 _1iuItXb2L31l1pCXU2swIX']"); 
                         if (progress == (producing || nocapacity || recurring)) {
                             const eta = convertParsedDurationToETA(etaValue);
-                            const etaTag = createTextSpan(` (${eta})`, this.tag);
-                            if (progress.parentElement && etaTag) {
-                                progress.parentElement.appendChild(etaTag);
+                            if (progress.parentElement && eta) {
+                                progress.parentElement.appendChild(createTextSpan(` (${eta})`, this.tag));
                                 sumTimes.push(etaValue);
                             }
                         }
