@@ -20,14 +20,19 @@ export class OrderETAs {
             for (let i = 0; i < prodItems.length; i++) {
                 const itemETA = (prodItems[i].querySelector("div[class='_2wCEB4yaom4TdA4cxLZhbr'] div[class='_1j-lU9fMFzEgedyKKsPDtL _3dW9W1Qi1zDylwVf7nNSih'] > span"));
                 if (itemETA) {
-                    const progress = (prodItems[i].querySelector("span:nth-of-type(2)") && (prodItems[i].querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']") || prodItems[i].querySelector("span[class='_2KbBUUZxADDNHtAW9ouHrP _1UD8Nq_edzxyMXDliVlb9d']")));
+                    const progress = prodItems[i].querySelector("span:nth-of-type(2)");
                     const etaValue = parseDuration(itemETA.textContent);
                     if (progress && etaValue) { // this item is already being produced, need to use the current value
-                        const eta = convertParsedDurationToETA(etaValue);
-                        const etaTag = createTextSpan(` (${eta})`, this.tag);
-                        if (progress.parentElement && etaTag) {
-                            progress.parentElement.appendChild(etaTag);
-                            sumTimes.push(etaValue);
+                        const producing = prodItems[i].querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']");
+                        const nocapacity = prodItems[i].querySelector("span[class='_2KbBUUZxADDNHtAW9ouHrP _1UD8Nq_edzxyMXDliVlb9d']");
+                        const recurring = prodItems[i].querySelector("span[class='_29auS2ZKnkxm6ry4JazqA6 _1iuItXb2L31l1pCXU2swIX']"); 
+                        if (progress == (producing || nocapacity || recurring)) {
+                            const eta = convertParsedDurationToETA(etaValue);
+                            const etaTag = createTextSpan(` (${eta})`, this.tag);
+                            if (progress.parentElement && etaTag) {
+                                progress.parentElement.appendChild(etaTag);
+                                sumTimes.push(etaValue);
+                            }
                         }
                     }
                     else if (etaValue) { // item is in the queue, need to find the earliest slot it can start and add it there
