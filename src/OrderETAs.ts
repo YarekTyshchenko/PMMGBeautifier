@@ -16,16 +16,17 @@ export class OrderETAs {
         const prodLines = Array.from(document.querySelectorAll(Selector.ProdLine));
         prodLines.forEach(line => {
             const prodItems = Array.from(line.querySelectorAll("div[class='_1a75pC9Q0YF44bObHykWIA']"));
-            let sumTimes = Array();
-            for (let i = 0; i < prodItems.length; i++) {
-                const itemETA = (prodItems[i].querySelector("div[class='_1j-lU9fMFzEgedyKKsPDtL _3dW9W1Qi1zDylwVf7nNSih'] > span"));
-                if (itemETA) {
-                    const progress = prodItems[i].querySelector("span:nth-of-type(2)");
+            var sumTimes = Array();
+            prodItems.forEach(item => {
+            //for (let i = 0; i < prodItems.length; i++) {
+                const itemETA = (item.querySelector("div[class='_1j-lU9fMFzEgedyKKsPDtL _3dW9W1Qi1zDylwVf7nNSih'] > span"));
+                if (itemETA && itemETA.textContent && !itemETA.textContent.match(/ago$/)) {
+                    const progress = item.querySelector("span:nth-of-type(2)");
                     const etaValue = parseDuration(itemETA.textContent);
                     if (progress && etaValue) { // this item is already being produced, need to use the current value
-                        const producing = prodItems[i].querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']");
-                        const nocapacity = prodItems[i].querySelector("span[class='_2KbBUUZxADDNHtAW9ouHrP _1UD8Nq_edzxyMXDliVlb9d']");
-                        const recurring = prodItems[i].querySelector("span[class='_29auS2ZKnkxm6ry4JazqA6 _1iuItXb2L31l1pCXU2swIX']"); 
+                        const producing = item.querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']");
+                        const nocapacity = item.querySelector("span[class='_2KbBUUZxADDNHtAW9ouHrP _1UD8Nq_edzxyMXDliVlb9d']");
+                        const recurring = item.querySelector("span[class='_29auS2ZKnkxm6ry4JazqA6 _1iuItXb2L31l1pCXU2swIX']"); 
                         if (progress == (producing || nocapacity || recurring)) {
                             const eta = convertParsedDurationToETA(etaValue);
                             if (progress.parentElement && eta) {
@@ -39,12 +40,12 @@ export class OrderETAs {
                         const summedEta = lowestEta + etaValue;
                         sumTimes[sumTimes.indexOf(lowestEta)] = summedEta;
                         const eta = convertParsedDurationToETA(summedEta);
-                        if (prodItems[i] && eta) {
-                            prodItems[i].appendChild(createTextSpan(` (${eta})`, this.tag));
+                        if (item && eta) {
+                            item.appendChild(createTextSpan(` (${eta})`, this.tag));
                         }
                     }
                 }
-            }
+            })
         });
     }
 
