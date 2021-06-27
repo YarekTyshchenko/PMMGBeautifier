@@ -18,7 +18,6 @@ export class OrderETAs {
             const prodItems = Array.from(line.querySelectorAll("div[class='_1a75pC9Q0YF44bObHykWIA']"));
             var sumTimes = Array();
             prodItems.forEach(item => {
-            //for (let i = 0; i < prodItems.length; i++) {
                 const itemETA = (item.querySelector("div[class='_1j-lU9fMFzEgedyKKsPDtL _3dW9W1Qi1zDylwVf7nNSih'] > span"));
                 if (itemETA && itemETA.textContent && !itemETA.textContent.match(/ago$/)) {
                     const progress = item.querySelector("span:nth-of-type(2)");
