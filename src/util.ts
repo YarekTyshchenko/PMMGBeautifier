@@ -62,7 +62,7 @@ export function createTextSpan(text, className: string = "prun-remove-js") {
 export function genericCleanup(className: string = "prun-remove-js") {
   // remove all elements added in the last run
   Array.from(document.getElementsByClassName(className)).forEach((elem) => {
-    elem.parentNode && elem.parentNode.removeChild(elem);
+    elem && elem.parentNode && elem.parentNode.removeChild(elem);
   });
 }
 
