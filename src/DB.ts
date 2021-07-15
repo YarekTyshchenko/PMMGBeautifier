@@ -58,7 +58,7 @@ export function shortenMatName(text) {
         'InsuFoam': 'INS',
         'MegaTube Coating': 'MTC',
         'Mineral Construction Granulate': 'MCG',
-        'Nano-Carbon Sheeting': 'NCX',
+        'Nano-Carbon Sheeting': 'NCS',
         'Nano Fiber': 'NFI',
         'Nano-Coated Glass': 'NG',
         'Reinforced Glass': 'RG',
