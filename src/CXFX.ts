@@ -23,7 +23,7 @@ export class CXFX {
         for (let i = 0; i < companies.length; i++) {
             const element = companies[i];
             const text = element.textContent;
-            if (text!.length > 25) {
+            if (text!.length > 23) {
                 element.textContent = text!.substring(0, 23) + "\*";
             }
         }

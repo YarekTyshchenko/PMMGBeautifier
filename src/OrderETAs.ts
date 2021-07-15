@@ -22,7 +22,7 @@ export class OrderETAs {
                 if (itemETA && itemETA.textContent && !itemETA.textContent.match(/ago$/)) {
                     const progress = item.querySelector("span:nth-of-type(2)");
                     const etaValue = parseDuration(itemETA.textContent);
-                    if (etaValue > 0 && progress && progress != item.querySelector("span[class='_29auS2ZKnkxm6ry4JazqA6 _1iuItXb2L31l1pCXU2swIX']")) { // this item is already being produced, need to use the current value
+                    if (etaValue > 0 && progress && progress != (item.querySelector("span[class='_29auS2ZKnkxm6ry4JazqA6 _1iuItXb2L31l1pCXU2swIX']") || item.querySelector("span[class='_1NuzUEirp5PyigpJY2QYGp _2M0A1DQeA4eEP7b3VGuxl_']"))) { // this item is already being produced, need to use the current value
                         if (progress == (item.querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']") || item.querySelector("span[class='_2KbBUUZxADDNHtAW9ouHrP _1UD8Nq_edzxyMXDliVlb9d']"))) {
                             const eta = convertParsedDurationToETA(etaValue);
                             if (progress.parentElement && eta) {
