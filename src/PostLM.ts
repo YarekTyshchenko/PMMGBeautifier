@@ -29,8 +29,9 @@ export class PostLM {
       const calculatePricePerUnit = () => {
         const amount = parseInt(amountInput.value);
           const total = parseInt(totalPriceInput.value);
-          const postingFee = (document.evaluate("div[label/span[text()='Fees']]/div/div/div/span", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLSpanElement).innerText;
-          const postingFeeValue = parseInt(postingFee!.replace(/[,.]/g, '')) / 100;
+          const feeField = document.evaluate("div[label/span[text()='Fees']]/div/div/div/span", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLSpanElement;
+          const postingFee = feeField ? feeField.innerText : "0";
+          const postingFeeValue = parseInt(postingFee.replace(/[,.]/g, '')) / 100;
           var pricePerUnitWithFee;
           switch (type.innerText) {
               case "BUYING":
