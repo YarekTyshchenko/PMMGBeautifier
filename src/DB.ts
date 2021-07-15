@@ -51,6 +51,7 @@ export function shortenMatName(text) {
         'Sedative Substance': 'JUI',
         'TCL Acid': 'TC',
         'ThermoFluid': 'THF',
+        'Sodium Borohydride': 'NAB',
 
         // Construction Materials
         'Epoxy Resin': 'EPO',
