@@ -1,6 +1,5 @@
 import { Selector } from "./Selector";
 import { createTextSpan, genericCleanup, toFixed, colorizeType } from "./util";
-import { shortenMatName } from "./DB";
 
 export class LocalMarketAds {
     private tag = "pb-lm-ads";
@@ -20,6 +19,8 @@ export class LocalMarketAds {
             const totalCents = parseInt(matches[3].replace(/[,.]/g, ''));
             const perItem = toFixed(totalCents / count / 100, 2);
             const entry = element.querySelector(Selector.LMCommodityAdInnerText)!;
+            const matLongName = matches[2];
+            const matShortNameStart = matLongName.indexOf('(');
             let shownEntry = entry.cloneNode(true) as HTMLElement;
 
             const adType = entry.childNodes[0].textContent;
@@ -31,7 +32,7 @@ export class LocalMarketAds {
 
             shownEntry.classList.add(this.tag);
             shownEntry.replaceChild(colorizeType(adType, this.tag)!, shownEntry.childNodes[0]);
-            shownEntry.childNodes[1].textContent = ` ${count} ${shortenMatName(matches[2])} `;
+            shownEntry.childNodes[1].textContent = ` ${count} ${matLongName.substr(matShortNameStart + 1, matLongName.length - matShortNameStart - 2)} `;
             shownEntry.childNodes[3].textContent = "";
             shownEntry.childNodes[4].textContent = "";
             shownEntry.childNodes[5].textContent = "";
@@ -67,12 +68,13 @@ export class LocalMarketAds {
                 shownEntry.classList.add(this.tag);
                 shownEntry.replaceChild(colorizeType("SHIPPING", this.tag)!, shownEntry.childNodes[0]);
                 shownEntry.childNodes[1].textContent = ` ` + shownEntry.childNodes[1].textContent;
-                shownEntry.childNodes[6].textContent = ` `;
-                shownEntry.childNodes[7].textContent = shownEntry.childNodes[7].textContent!.replace(/ *\([^)]*\) */g, "");
-                shownEntry.childNodes[8].textContent = `->`;
-                shownEntry.childNodes[9].textContent = shownEntry.childNodes[9].textContent!.replace(/ *\([^)]*\) */g, " ");
-                shownEntry.removeChild(shownEntry.childNodes[10]);
+                shownEntry.childNodes[7].textContent = ` `;
+                shownEntry.childNodes[8].textContent = shownEntry.childNodes[8].textContent!.replace(/ *\([^)]*\) */g, "");
+                shownEntry.childNodes[9].textContent = `->`;
+                shownEntry.childNodes[10].textContent = shownEntry.childNodes[10].textContent!.replace(/ *\([^)]*\) */g, " ");
+                shownEntry.removeChild(shownEntry.childNodes[11]);
                 shownEntry.style.whiteSpace = "pre-wrap";
+
                 entry.parentElement!.appendChild(shownEntry);
             }
         }

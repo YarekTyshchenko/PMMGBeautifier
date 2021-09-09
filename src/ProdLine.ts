@@ -1,8 +1,8 @@
 import { Selector } from "./Selector";
 import { convertParsedDurationToETA, createTextSpan, genericCleanup, parseDuration } from "./util";
 
-export class OrderETAs {
-  private tag = "pb-order-eta";
+export class ProdLine {
+  private tag = "pb-prod";
 
   cleanup() {
     genericCleanup(this.tag);
@@ -10,10 +10,11 @@ export class OrderETAs {
 
   run() {
       this.beautifyAggregateProductionQueue();
+      workProdLineColumn();
   }
 
     private beautifyAggregateProductionQueue() {
-        const prodLines = Array.from(document.querySelectorAll(Selector.ProdLine));
+        const prodLines = Array.from(document.querySelectorAll(Selector.ProdLineItem));
         prodLines.forEach(line => {
             const prodItems = Array.from(line.querySelectorAll("div[class='_1a75pC9Q0YF44bObHykWIA']"));
             var sumTimes = Array();
@@ -45,4 +46,31 @@ export class OrderETAs {
         });
     }
 
+}
+
+const narrowProdLineColumn: boolean = true;
+
+function workProdLineColumn() {
+    const prodLineHeaders = Array.from(document.querySelectorAll(Selector.ProdLineHeader));
+    const prodLineItems = Array.from(document.querySelectorAll(Selector.ProdLineItem));
+    const prodLineDetails = Array.from(document.querySelectorAll("div[class='_3DTrsPMU_E7m4v9TrUCKI7 _2NKqmMbW69tQxqvJOvKvLL']"));
+    if (prodLineHeaders && prodLineItems) {
+        if (narrowProdLineColumn) {
+            prodLineHeaders.forEach(header => {
+                const box = header as HTMLElement;
+                box.classList.remove('_2NKqmMbW69tQxqvJOvKvLL');
+                box.style.width = "110px";
+            })
+            prodLineItems.forEach(item => {
+                const box = item as HTMLElement;
+                box.classList.remove('_2NKqmMbW69tQxqvJOvKvLL');
+                box.style.width = "110px";
+            })
+            prodLineDetails.forEach(details => {
+                const box = details as HTMLElement;
+                box.classList.remove('_2NKqmMbW69tQxqvJOvKvLL');
+                box.style.width = "110px";
+            })
+        }
+    }
 }
