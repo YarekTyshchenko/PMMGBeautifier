@@ -27,7 +27,10 @@ export class ProdLine {
                         if (progress == (item.querySelector("span[class='E1aHYdg2zdgvZCsPl3p9y _3RsFeLwUgZ4bFiiA1fteEe']") || item.querySelector("span[class='_2KbBUUZxADDNHtAW9ouHrP _1UD8Nq_edzxyMXDliVlb9d']"))) {
                             const eta = convertParsedDurationToETA(etaValue);
                             if (progress.parentElement && eta) {
-                                progress.parentElement.appendChild(createTextSpan(` (${eta})`, this.tag));
+                                const etaTag = createTextSpan(` (${eta})`, this.tag);
+                                etaTag.style.position = "relative";
+                                etaTag.style.zIndex = "1";
+                                item.appendChild(etaTag);
                                 sumTimes.push(etaValue);
                             }
                         }
