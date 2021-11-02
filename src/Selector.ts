@@ -6,5 +6,5 @@ export const Selector = {
     CXOrdersExchangeName: "span[class='_3ifriA33o8WAhdFSaIgqWi']",
     CXOrdersTable: "div[class='Yi2NJnhSe78fsycfnagth _1v_haUkG0iwIeZkpE2Mkrh'] > div > div > div > div > div > div > div > table",
     ProdLineHeader: "div[class='_11WSNCrU67r9BAS8vuYINW _2NKqmMbW69tQxqvJOvKvLL']",
-    ProdLineItem: "div[class~='z8O6A0dWYid_6Vb1y75qz']",
+    ProdLineItem: "div[class='z8O6A0dWYid_6Vb1y75qz']",
 }

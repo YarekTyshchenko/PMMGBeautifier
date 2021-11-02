@@ -9,10 +9,8 @@ export class ParseETAs {
     genericCleanup(this.tag);
   }
   run() {
-    const elements = Array.from(document.querySelectorAll("table[class~='_38xIOphw1aA3t-LEbriQzq']"));
-    elements.forEach(tableElem => {
-      const tableRows = Array.from(tableElem.querySelectorAll("tbody > tr"));
-      tableRows.forEach(row => {
+      const ETARows = Array.from(document.querySelectorAll("div[class='_1T3GrusQ2ydTsNKeMaEfPl'] > div > div > div[class='_1JqhiJ8_SwKH8PRALcO9Hc _33A_5lETf4HBqwJi_q-jhZ _1vWRpdI8cKNMPyOPnzlXgX'] > div[class='shbi17MHX7PpkUzoWVbWm'] > div > div > div > table > tbody > tr"));
+      ETARows.forEach(row => {
         // 7th cell contains flight time
         const etaCell = row.querySelectorAll("td").item(7);
         if (etaCell.textContent) {
@@ -21,6 +19,5 @@ export class ParseETAs {
           etaCell.appendChild(createTextSpan(` (${eta})`, this.tag));
         }
       });
-    });
   }
 }
