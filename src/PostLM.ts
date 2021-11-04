@@ -14,9 +14,9 @@ export class PostLM {
   }
   run() {
     Array.from(document.querySelectorAll("article[class~='ftMvUGi7LmGCZmg3dJ0_f'] > div > div > form")).forEach(form => {
-      const amountInput = document.evaluate("div[label/span[text()='Amount']]/div/div/input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
+      const amountInput = document.evaluate("div[label/span[text()='Amount']]//input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
 
-      const totalPriceInput = document.evaluate("div[label/span[text()='Total price']]/div/div/input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
+      const totalPriceInput = document.evaluate("div[label/span[text()='Total price']]//input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
 
       const displayElement = createTextSpan('-- ea', this.tag);
       totalPriceInput.parentNode!.insertBefore(displayElement, totalPriceInput);
@@ -64,7 +64,8 @@ export class PostLM {
       button.classList.remove(...className);
       button.classList.add("_1Y9l3J20Xn-CyxMZIcH06i");
     });
-      // innerHtml required, as there is some sort of a transform that upper cases all text
+
+    // innerHtml required, as there is some sort of a transform that upper cases all text
     const originalText = button.innerHTML;
     button.innerHTML = text;
     this.cleanups.push(() => button.innerHTML = originalText);
