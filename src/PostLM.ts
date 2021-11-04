@@ -14,9 +14,8 @@ export class PostLM {
   }
   run() {
     Array.from(document.querySelectorAll("article[class~='ftMvUGi7LmGCZmg3dJ0_f'] > div > div > form")).forEach(form => {
-      const amountInput = document.evaluate("div[label/span[text()='Amount']]/div/div/input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
-
-      const totalPriceInput = document.evaluate("div[label/span[text()='Total price']]/div/div/input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
+    const amountInput = document.evaluate("div[label/span[text()='Amount']]/div/div/div/input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
+    const totalPriceInput = document.evaluate("div[label/span[text()='Total price']]/div/div/div/input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
 
         const displayElement = createTextSpan('-- ea', this.tag);
         totalPriceInput.parentNode!.insertBefore(displayElement, totalPriceInput);
