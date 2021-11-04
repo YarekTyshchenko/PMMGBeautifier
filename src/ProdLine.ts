@@ -5,7 +5,7 @@ export class ProdLine {
   private tag = "pb-prod";
 
   cleanup() {
-    genericCleanup(this.tag);
+      genericCleanup(this.tag);
   }
 
   run() {
@@ -51,7 +51,7 @@ export class ProdLine {
 
 }
 
-const narrowProdLineColumn: boolean = false;
+const narrowProdLineColumn: boolean = true;
 
 function workProdLineColumn() {
     const prodLineHeaders = Array.from(document.querySelectorAll(Selector.ProdLineHeader));
