@@ -1,8 +1,11 @@
+import {Selector} from "./Selector";
+
 /**
  * parse a duration into an actual ETA string
  * @param duration
  * @returns {string}
  */
+
 export function convertDurationToETA(duration) {
   const parsedSeconds = parseDuration(duration);
   const eta = new Date();
@@ -68,4 +71,29 @@ export function genericCleanup(className: string = "prun-remove-js") {
 export function toFixed(value: number, precision: number = 2) {
   const power = Math.pow(10, precision || 0);
   return Math.round(value * power) / power;
+}
+
+// TODO: Return an array of buffers
+export function getBuffer(bufferCode: string): HTMLElement {
+  return document.evaluate(
+    `//div[@class='${Selector.BufferHeader}'][starts-with(., '${bufferCode}')]/../..`,
+    document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLElement;
+}
+
+export function getElementsByXPath(xpath: string): Array<Node> {
+  const result = document.evaluate(
+    xpath, document, null, XPathResult.ANY_UNORDERED_NODE_TYPE, null);
+
+  const output: Array<Node> = [];
+
+  try {
+    let node = result.iterateNext();
+    while (node) {
+      output.push(node);
+      node = result.iterateNext();
+    }
+  } catch(e) {
+    // ignored
+  }
+  return output;
 }

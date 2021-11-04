@@ -1,17 +1,17 @@
-import { FlightplanETAs } from "./FlightplanETAs";
+import { FlightETAs } from "./FlightETAs";
 import { LocalMarketAds } from './LocalMarketAds';
 import { ModuleRunner } from "./ModuleRunner";
 import { OrderETAs } from "./OrderETAs";
-import { ParseETAs } from "./ParseETAs";
+import { FleetETAs } from "./FleetETAs";
 import { PostLM } from "./PostLM";
 import { ShippingAds } from "./ShippingAds";
 import { QueueLoad } from "./QueueLoad";
 
 const runner = new ModuleRunner([
   new LocalMarketAds(),
-  new ParseETAs(),
+  new FleetETAs(),
   new OrderETAs(),
-  new FlightplanETAs(),
+  new FlightETAs(),
   new ShippingAds(),
   new PostLM(),
   new QueueLoad(),
