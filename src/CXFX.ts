@@ -67,19 +67,22 @@ const hideMatNameColumn: boolean = true;
 const addOrderValueColumn: boolean = true;
 
 function workCXOSHeader(tag) {
-    const CXOSHeader = document.querySelector(Selector.CXOrdersTable + " > thead > tr")!;
+    const CXOSHeader = document.querySelectorAll(Selector.CXOrdersTable + " > thead > tr")!;
+    console.warn(CXOSHeader);
     if (CXOSHeader) {
-        if (hideMatNameColumn) {
-            const orderMatNameHeader = CXOSHeader.querySelector("th:nth-of-type(4)") as HTMLElement;
-            orderMatNameHeader.style.display = "None";
-        }
-        if (addOrderValueColumn) {
-            const orderStatusHeader = CXOSHeader.querySelector("th:nth-of-type(7)");
-            const newHeader = document.createElement("th");
-            newHeader.classList.add(tag);
-            newHeader.textContent = "Value";
-            CXOSHeader.insertBefore(newHeader, orderStatusHeader);
-        }
+        Array.from(CXOSHeader).forEach((header) => {
+            if (hideMatNameColumn) {
+                const orderMatNameHeader = header.querySelector("th:nth-of-type(4)") as HTMLElement;
+                orderMatNameHeader.style.display = "None";
+            }
+            if (addOrderValueColumn) {
+                const orderStatusHeader = header.querySelector("th:nth-of-type(7)");
+                const newHeader = document.createElement("th");
+                newHeader.classList.add(tag);
+                newHeader.textContent = "Value";
+                header.insertBefore(newHeader, orderStatusHeader);
+            }
+        });
     }
 }
 
