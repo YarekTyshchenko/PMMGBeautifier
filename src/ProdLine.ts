@@ -51,7 +51,7 @@ export class ProdLine {
 
 }
 
-const narrowProdLineColumn: boolean = true;
+const narrowProdLineColumn: boolean = false;
 
 function workProdLineColumn() {
     const prodLineHeaders = Array.from(document.querySelectorAll(Selector.ProdLineHeader));
