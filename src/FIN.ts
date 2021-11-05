@@ -1,4 +1,4 @@
-import { shorten, genericCleanup, } from "./util";
+import { shorten, genericCleanup, getBuffers} from "./util";
 
 export class FIN {
     private tag = "pb-fin";
@@ -6,9 +6,12 @@ export class FIN {
         genericCleanup(this.tag);
     }
     run() {
-        const finlaHeader = document.querySelectorAll("table[class^='t_JwOZxlVCPfN-FKRIoNo'] > thead > tr > th");
-        Array.from(finlaHeader).forEach(element => {
-            element.textContent = shorten(element.textContent);
+        var FINLABuffers = getBuffers("FINLA");
+        FINLABuffers.forEach(buffer => {
+            const finlaHeaders = Array.from(buffer.querySelectorAll("table > thead > tr > th")) as HTMLElement[];
+            Array.from(finlaHeaders).forEach(element => {
+                element.textContent = shorten(element.textContent);
+            });
         });
     }
 }

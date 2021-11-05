@@ -117,3 +117,16 @@ function FontColor(r, g, b, textHolder) {
     textHolder.style.fontSize = "90%";
     textHolder.style.fontWeight = "600";
 }
+
+export function getBuffers(cmd) {
+    var xpath = `//div[@class='_1OuLU0zrb4Lq9rlap4OCdX _10F2njzEHtebAJEUV-KJJy'][starts-with(., "${cmd}")]`;
+    var matchingElements = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+    var buffers = Array();
+    for (var i = 0; i < matchingElements.snapshotLength; i++) {
+        var bufferItem = matchingElements.snapshotItem(i);
+        if (bufferItem && bufferItem.parentElement) {
+            buffers.push(bufferItem.parentElement.parentElement!);
+        }
+    }
+    return buffers;
+}
