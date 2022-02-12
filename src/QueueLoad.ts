@@ -18,7 +18,7 @@ export class QueueLoad {
      * @private
      */
     private getEtaFromRow(row: Element) {
-        const etaCell = row.querySelectorAll("td").item(4)
+        const etaCell = row.querySelectorAll("td").item(5)
         if (etaCell) {
             const etaSpan = etaCell.querySelector("span")
             if (etaSpan) {
