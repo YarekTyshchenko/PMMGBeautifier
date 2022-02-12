@@ -34,41 +34,6 @@ export class PostLM implements Module {
         input.addEventListener('beforeinput', calculatePricePerUnit);
         this.cleanups.push(() => input.removeEventListener('beforeinput', calculatePricePerUnit));
       })
-
-      // Change CMD to better reflect what we are doing
-      const type = document.evaluate(
-        "div[label/span[text()='Type']]/div/div",
-        form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
-      ).singleNodeValue as HTMLElement;
-      const postButton = document.evaluate(
-        "div/div/button[text()='post']",
-        form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
-      ).singleNodeValue as HTMLInputElement;
-
-      if (type && postButton) {
-        switch (type.innerText) {
-          case "BUYING":
-            this.changeButton(postButton, Style.ButtonSuccess, "Buy");
-            break;
-          case "SELLING":
-            this.changeButton(postButton, Style.ButtonDanger, "Sell");
-            break;
-        }
-      }
     })
-  }
-
-  private changeButton(button: HTMLElement, className: string[], text: string) {
-    button.classList.remove(...Style.ButtonPrimary);
-    button.classList.add(...className);
-    this.cleanups.push(() => {
-      button.classList.remove(...className);
-      button.classList.add(...Style.ButtonPrimary);
-    });
-
-    // innerHtml required, as there is some sort of a transform that upper cases all text
-    const originalText = button.innerHTML;
-    button.innerHTML = text;
-    this.cleanups.push(() => button.innerHTML = originalText);
   }
 }
