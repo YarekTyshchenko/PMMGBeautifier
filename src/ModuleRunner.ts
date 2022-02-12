@@ -1,6 +1,6 @@
 import {Sidebar} from "./Sidebar";
 
-interface Module {
+export interface Module {
   run();
   cleanup();
 }

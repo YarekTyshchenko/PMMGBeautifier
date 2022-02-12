@@ -1,7 +1,8 @@
+import {Module} from "./ModuleRunner";
 import {Selector} from "./Selector";
 import {createTextSpan, genericCleanup, parseDuration, toFixed} from "./util";
 
-export class QueueLoad {
+export class QueueLoad implements Module {
     private tag = "pb-queue-load";
 
     cleanup() {

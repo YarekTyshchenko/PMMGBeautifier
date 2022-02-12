@@ -1,7 +1,8 @@
+import {Module} from "./ModuleRunner";
 import {Selector} from "./Selector";
 import {convertDurationToETA, createTextSpan, genericCleanup} from "./util";
 
-export class OrderETAs {
+export class OrderETAs implements Module {
   private tag = "pb-order-eta";
 
   cleanup() {

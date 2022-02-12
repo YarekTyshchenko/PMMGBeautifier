@@ -1,7 +1,8 @@
+import {Module} from "./ModuleRunner";
 import {Selector} from "./Selector";
 import {createTextSpan, genericCleanup, toFixed} from "./util";
 
-export class LocalMarketAds {
+export class LocalMarketAds implements Module {
   private tag = "pb-lm-ads";
   cleanup() {
     genericCleanup(this.tag);
