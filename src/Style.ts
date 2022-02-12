@@ -1,3 +1,6 @@
+/**
+ * This is a list of CCS styles that can be applied to buttons and fonts
+ */
 export const Style = {
   Button: ["_1VPBeuov5AYlOu4s7pKIlY"],
   ButtonPrimary: ["_1Y9l3J20Xn-CyxMZIcH06i"],
