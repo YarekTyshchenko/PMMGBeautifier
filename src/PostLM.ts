@@ -1,3 +1,4 @@
+import {Selector} from "./Selector";
 import {Style} from "./Style";
 import {createTextSpan, genericCleanup, toFixed} from "./util";
 
@@ -13,7 +14,7 @@ export class PostLM {
     genericCleanup(this.tag);
   }
   run() {
-    Array.from(document.querySelectorAll("article[class~='ftMvUGi7LmGCZmg3dJ0_f'] > div > div > form")).forEach(form => {
+    Array.from(document.querySelectorAll(Selector.LMPostForm)).forEach(form => {
       const amountInput = document.evaluate("div[label/span[text()='Amount']]//input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
 
       const totalPriceInput = document.evaluate("div[label/span[text()='Total price']]//input", form, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as HTMLInputElement;
@@ -58,11 +59,11 @@ export class PostLM {
   }
 
   private changeButton(button: HTMLElement, className: string[], text: string) {
-    button.classList.remove("_1Y9l3J20Xn-CyxMZIcH06i");
+    button.classList.remove(...Style.ButtonPrimary);
     button.classList.add(...className);
     this.cleanups.push(() => {
       button.classList.remove(...className);
-      button.classList.add("_1Y9l3J20Xn-CyxMZIcH06i");
+      button.classList.add(...Style.ButtonPrimary);
     });
 
     // innerHtml required, as there is some sort of a transform that upper cases all text

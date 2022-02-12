@@ -1,3 +1,4 @@
+import {Selector} from "./Selector";
 import {createTextSpan, genericCleanup, parseDuration, toFixed} from "./util";
 
 export class QueueLoad {
@@ -27,13 +28,13 @@ export class QueueLoad {
         }
         return 0;
     }
-    
+
     /**
      * Parse all ProdQ orders
      * @private
      */
     private calculateQueueLoad() {
-        const tables = Array.from(document.querySelectorAll("table[class~='B5JEuqpNoN-VT8jmA8g3l']"));
+        const tables = Array.from(document.querySelectorAll(Selector.ProdQueueTable));
         tables.forEach(table => {
             const rows = Array.from(table.querySelectorAll("tbody:nth-of-type(2) > tr"))
             const totalTime = rows.reduce<number>((total, row) => {
@@ -44,7 +45,7 @@ export class QueueLoad {
                 rows.forEach(row => {
                     const eta = this.getEtaFromRow(row);
                     const percent = toFixed(eta / totalTime * 100, 2);
-                    const textField = row.querySelectorAll("td").item(5);
+                    const textField = row.querySelectorAll("td").item(6);
                     if (textField && eta > 0) {
                         const span = createTextSpan(` ${percent}%`, this.tag);
                         textField.appendChild(span);

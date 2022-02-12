@@ -1,3 +1,4 @@
+import {Selector} from "./Selector";
 import {Style, WithStyles} from "./Style";
 import {createTextSpan, genericCleanup, toFixed} from "./util";
 
@@ -62,7 +63,7 @@ export class Sidebar {
       right.appendChild(cleanup);
     });
 
-    Array.from(document.querySelectorAll("div[class^='MCrttK6SbK6k-5U-WEPmy']")).forEach(sidebar => {
+    Array.from(document.querySelectorAll(Selector.Sidebar)).forEach(sidebar => {
       sidebar.appendChild(area);
     });
   }
