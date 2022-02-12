@@ -1,9 +1,10 @@
+import {Module} from "./ModuleRunner";
 import {convertDurationToETA, createTextSpan, genericCleanup, getBuffer} from "./util";
 
 /**
  * Parse Fleet ETA times and add the actual date-time of arrival
  */
-export class FleetETAs {
+export class FleetETAs implements Module {
   private tag = "pb-flt-eta";
   cleanup() {
     genericCleanup(this.tag);

@@ -1,6 +1,7 @@
+import {Module} from "./ModuleRunner";
 import {convertDurationToETA, createTextSpan, genericCleanup, getBuffer} from "./util";
 
-export class FlightETAs {
+export class FlightETAs implements Module {
   private tag = "pb-sfc-eta";
   cleanup() {
     genericCleanup(this.tag);

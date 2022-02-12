@@ -1,8 +1,8 @@
+import {Module} from "./ModuleRunner";
 import {Selector} from "./Selector";
-import {Style} from "./Style";
 import {createTextSpan, genericCleanup, toFixed} from "./util";
 
-export class PostLM {
+export class PostLM implements Module {
   private tag = "pb-post-lm-price";
   private cleanups: Array<() => void> = [];
 

@@ -1,7 +1,8 @@
+import {Module} from "./ModuleRunner";
 import {Selector} from "./Selector";
 import {createTextSpan, genericCleanup, toFixed} from "./util";
 
-export class ShippingAds {
+export class ShippingAds implements Module {
   private tag = "pb-shipping-ads";
   cleanup() {
     genericCleanup(this.tag);

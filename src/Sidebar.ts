@@ -1,3 +1,4 @@
+import {Module} from "./ModuleRunner";
 import {Selector} from "./Selector";
 import {Style, WithStyles} from "./Style";
 import {createTextSpan, genericCleanup, toFixed} from "./util";
@@ -13,7 +14,7 @@ interface ModulePerformance {
   runTime: number;
 }
 
-export class Sidebar {
+export class Sidebar implements Module {
   private tag = "pb-sidebar";
   private list: ModulePerformance[];
   constructor(list: ModulePerformance[]) {
